@@ -1,0 +1,5 @@
+site-test/node_modules/
+site-test/dist/
+site-test/.astro/
+.DS_Store
+*.log
