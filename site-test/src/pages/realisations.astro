@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionWrapper from '../components/SectionWrapper.astro';
+import Button from '../components/Button.astro';
+import { SITE } from '../config';
+---
+
+<BaseLayout
+  title="Réalisations"
+  description="Nos premiers cas clients arrivent. En attendant, parlons de votre projet."
+>
+
+  <SectionWrapper size="lg" bg="default">
+    <div class="realisations-content reveal">
+      <h1>Nos premiers cas arrivent.</h1>
+      <p class="realisations-sub">
+        On préfère vous montrer du travail réel plutôt que des maquettes fictives ou des études de cas génériques. Les premiers projets sont en cours — ils seront publiés ici dès validation des clients concernés.
+      </p>
+
+      <div class="in-the-meantime">
+        <p class="meantime-label">En attendant, la façon la plus directe de voir si notre approche correspond à votre projet :</p>
+        <Button href={SITE.calendlyUrl} variant="primary" target="_blank" rel="noopener noreferrer">
+          Réserver un appel découverte (30 min)
+        </Button>
+        <span class="meantime-micro">Gratuit — sans engagement — on évalue ensemble</span>
+      </div>
+
+      <div class="process-reminder">
+        <h2>Ce qu'on livre à chaque projet</h2>
+        <p>Chaque projet suit le même process en 5 étapes — avec des livrables nommés à chaque étape et un périmètre qui ne change pas en cours de route.</p>
+        <a href="/offre#process" class="process-link">Voir le process en détail →</a>
+      </div>
+    </div>
+  </SectionWrapper>
+
+</BaseLayout>
+
+<style>
+  .realisations-content {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-8);
+  }
+
+  .realisations-content h1 { font-size: clamp(2rem, 5vw, 3rem); }
+
+  .realisations-sub {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .in-the-meantime {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  .meantime-label {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-2);
+  }
+
+  .meantime-micro { font-size: 0.8125rem; color: var(--color-text-secondary); }
+
+  .process-reminder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .process-reminder h2 { font-size: 1.25rem; }
+
+  .process-reminder p {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .process-link {
+    color: var(--color-accent);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+
+  .process-link:hover { color: var(--color-accent-hover); }
+</style>

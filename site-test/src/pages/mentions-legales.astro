@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionWrapper from '../components/SectionWrapper.astro';
+import { SITE } from '../config';
+---
+
+<BaseLayout
+  title="Mentions légales"
+  description={`Mentions légales du site ${SITE.name}.`}
+  noIndex={true}
+>
+
+  <SectionWrapper size="md" bg="default">
+    <div class="legal-content">
+      <h1>Mentions légales</h1>
+      <p class="legal-intro">
+        Conformément aux articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'économie numérique (LCEN).
+      </p>
+
+      <section class="legal-section">
+        <h2>Éditeur du site</h2>
+        <dl class="legal-dl">
+          <dt>Raison sociale</dt>
+          <dd>[NOM AGENCE] — [FORME JURIDIQUE]</dd>
+          <dt>Siège social</dt>
+          <dd>[ADRESSE COMPLÈTE]</dd>
+          <dt>SIRET</dt>
+          <dd>[NUMÉRO SIRET — 14 chiffres]</dd>
+          <dt>Directeur de la publication</dt>
+          <dd>[PRÉNOM NOM]</dd>
+          <dt>Email</dt>
+          <dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd>
+        </dl>
+      </section>
+
+      <section class="legal-section">
+        <h2>Hébergeur</h2>
+        <dl class="legal-dl">
+          <dt>Société</dt>
+          <dd>Vercel Inc.</dd>
+          <dt>Adresse</dt>
+          <dd>340 Pine Street, Suite 701, San Francisco, CA 94104, États-Unis</dd>
+          <dt>Site web</dt>
+          <dd>vercel.com</dd>
+        </dl>
+      </section>
+
+      <section class="legal-section">
+        <h2>Propriété intellectuelle</h2>
+        <p>
+          Le présent site et l'ensemble de son contenu (textes, images, graphismes, logo, icônes) sont la propriété exclusive de [NOM AGENCE], sauf mentions contraires. Toute reproduction, représentation ou exploitation non autorisée est interdite et constitutive de contrefaçon conformément aux articles L.335-2 et suivants du Code de Propriété Intellectuelle.
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2>Liens hypertextes</h2>
+        <p>
+          Le site peut contenir des liens vers des sites tiers. [NOM AGENCE] décline toute responsabilité quant à leur contenu ou disponibilité.
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2>Responsabilité</h2>
+        <p>
+          [NOM AGENCE] s'efforce d'assurer l'exactitude des informations publiées mais ne peut en garantir l'exhaustivité. L'utilisation des informations se fait sous la seule responsabilité de l'utilisateur.
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2>Droit applicable</h2>
+        <p>
+          Les présentes mentions légales sont soumises au droit français. En cas de litige, les tribunaux français seront seuls compétents.
+        </p>
+      </section>
+
+      <p class="legal-footer">
+        <a href="/politique-confidentialite">Politique de confidentialité</a> ·
+        <a href="/">Retour à l'accueil</a>
+      </p>
+    </div>
+  </SectionWrapper>
+
+</BaseLayout>
+
+<style>
+  .legal-content {
+    max-width: var(--max-width-prose);
+    margin: 0 auto;
+  }
+
+  .legal-content h1 {
+    font-family: var(--font-body);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: var(--space-4);
+  }
+
+  .legal-intro {
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-10);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .legal-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .legal-section h2 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .legal-section p {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+  }
+
+  .legal-dl {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-2) var(--space-6);
+    font-size: 0.9375rem;
+  }
+
+  dt {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  dd {
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  dd a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .legal-footer {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .legal-footer a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    margin: 0 var(--space-2);
+  }
+
+  @media (max-width: 640px) {
+    .legal-dl { grid-template-columns: 1fr; }
+  }
+</style>

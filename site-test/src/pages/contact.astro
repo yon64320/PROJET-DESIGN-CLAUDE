@@ -1,0 +1,361 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionWrapper from '../components/SectionWrapper.astro';
+import Button from '../components/Button.astro';
+import { SITE } from '../config';
+
+const merci = Astro.url.searchParams.get('merci') === '1';
+---
+
+<BaseLayout
+  title="Réserver un appel découverte"
+  description="Prenez 30 minutes pour parler de votre projet. Appel découverte gratuit, sans engagement. On évalue ensemble si on peut vous aider."
+>
+
+  <SectionWrapper size="lg" bg="default">
+    <div class="contact-layout">
+
+      <!-- Header -->
+      <div class="contact-header reveal">
+        <h1>Parlons de votre projet.</h1>
+        <p class="contact-sub">
+          30 minutes, sans engagement. On écoute votre situation, on évalue si notre approche correspond — et on vous dit franchement si ce n'est pas le bon fit.
+        </p>
+      </div>
+
+      <!-- Ce qui se passe pendant l'appel -->
+      <div class="what-happens reveal">
+        <h2>Ce qui se passe pendant ces 30 minutes</h2>
+        <ol class="steps-list" role="list">
+          {[
+            {
+              title: "On écoute",
+              body: "Vous nous parlez de votre activité, de vos objectifs, de votre situation digitale actuelle. Pas de présentation de nos \"offres\". Pas d'interruption pour pitcher.",
+            },
+            {
+              title: "On évalue",
+              body: "On vous dit honnêtement si votre problème entre dans notre périmètre — et si notre approche est adaptée à votre situation et à votre timing.",
+            },
+            {
+              title: "On propose — ou on dit non",
+              body: "Si le fit est là, on vous présente une approche concrète et les prochaines étapes. Si ce n'est pas le bon moment, on vous le dit clairement. Pas de relance. Pas de pression.",
+            },
+          ].map((step, i) => (
+            <li class="step-item">
+              <span class="step-num" aria-hidden="true">{i + 1}</span>
+              <div>
+                <strong class="step-title">{step.title}</strong>
+                <p class="step-body">{step.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <!-- Calendly embed -->
+      <div class="calendly-section reveal">
+        <p class="calendly-label">Choisissez un créneau :</p>
+        <Button variant="primary" id="open-calendly" class="calendly-btn">
+          Voir les créneaux disponibles
+        </Button>
+        <span class="calendly-micro">Calendly — 0 friction, 0 engagement</span>
+        <div id="calendly-widget" style="display:none; width: 100%; min-height: 650px; margin-top: 1rem;"></div>
+      </div>
+
+      <!-- Formulaire fallback -->
+      <div class="form-section reveal">
+        <h2 id="form-heading">Ou envoyez-nous un message :</h2>
+
+        {merci ? (
+          <div class="form-success" role="alert">
+            <strong>Votre message est bien reçu.</strong>
+            <p>On vous répond sous 24h ouvrées pour confirmer un créneau.</p>
+            <p>En attendant : <a href="/offre">voir notre offre en détail →</a></p>
+          </div>
+        ) : (
+          <form
+            action={`https://formspree.io/f/${SITE.formspreeId}`}
+            method="POST"
+            class="contact-form"
+            aria-labelledby="form-heading"
+            novalidate
+          >
+            <input type="hidden" name="_redirect" value={`${SITE.url}/contact?merci=1`} />
+
+            <div class="form-field">
+              <label for="prenom" class="form-label">Prénom <span aria-label="obligatoire">*</span></label>
+              <input
+                type="text"
+                id="prenom"
+                name="prenom"
+                required
+                autocomplete="given-name"
+                placeholder="Votre prénom"
+                class="form-input"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="email" class="form-label">Email professionnel <span aria-label="obligatoire">*</span></label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                autocomplete="email"
+                placeholder="votre@email.com"
+                class="form-input"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="besoin" class="form-label">Votre projet en 2 lignes <span class="optional">(optionnel)</span></label>
+              <textarea
+                id="besoin"
+                name="besoin"
+                rows="4"
+                placeholder="Ex : PME de conseil B2B, site existant mais 0 leads depuis 6 mois. On veut comprendre pourquoi."
+                class="form-input form-textarea"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="form-submit">Envoyer ma demande →</button>
+
+            <p class="form-rgpd">
+              En soumettant ce formulaire, vous acceptez notre <a href="/politique-confidentialite">politique de confidentialité</a>.
+              Vos données ne sont pas transmises à des tiers. Réponse sous 24h ouvrées.
+            </p>
+          </form>
+        )}
+      </div>
+
+      <!-- Réassurance -->
+      <div class="reassurance reveal">
+        <ul role="list" class="reassurance-list">
+          {[
+            "Pas de relance commerciale après l'appel si ce n'est pas le bon fit.",
+            "Vos informations restent confidentielles.",
+            "Si on ne peut pas vous aider, on vous le dit en début d'appel — pas en fin.",
+          ].map((item) => (
+            <li class="reassurance-item">
+              <span aria-hidden="true">—</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+    </div>
+  </SectionWrapper>
+
+</BaseLayout>
+
+<script define:vars={{ calendlyUrl: SITE.calendlyUrl }}>
+  document.getElementById('open-calendly')?.addEventListener('click', () => {
+    const widget = document.getElementById('calendly-widget');
+    const btn = document.getElementById('open-calendly');
+    if (!widget) return;
+
+    const s = document.createElement('script');
+    s.src = 'https://assets.calendly.com/assets/external/widget.js';
+    document.head.appendChild(s);
+    s.onload = () => {
+      if (typeof Calendly !== 'undefined') {
+        Calendly.initInlineWidget({ url: calendlyUrl, parentElement: widget });
+      }
+    };
+    widget.style.display = 'block';
+    if (btn) btn.style.display = 'none';
+  });
+</script>
+
+<style>
+  .contact-layout {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .contact-header h1 { margin-bottom: var(--space-4); }
+
+  .contact-sub {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .what-happens h2 { margin-bottom: var(--space-6); }
+
+  .steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    list-style: none;
+  }
+
+  .step-item {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  .step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+
+  .step-title {
+    display: block;
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  .step-body {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Calendly */
+  .calendly-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .calendly-label {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .calendly-micro { font-size: 0.8125rem; color: var(--color-text-secondary); }
+
+  /* Form */
+  .form-section h2 { margin-bottom: var(--space-6); }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .form-label {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .form-label span[aria-label] { color: var(--color-accent); margin-left: 2px; }
+
+  .optional {
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .form-input {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    background-color: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    transition: border-color 0.15s ease;
+    width: 100%;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(45, 74, 62, 0.1);
+  }
+
+  .form-input::placeholder { color: #9CA3AF; }
+
+  .form-textarea { resize: vertical; min-height: 100px; }
+
+  .form-submit {
+    align-self: flex-start;
+    background-color: var(--color-accent);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: var(--space-3) var(--space-8);
+    border-radius: var(--radius-md);
+    border: 2px solid var(--color-accent);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  .form-submit:hover { background-color: var(--color-accent-hover); }
+
+  .form-submit:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .form-rgpd {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+
+  .form-rgpd a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .form-success {
+    background-color: #F0F7F4;
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .form-success strong { color: var(--color-accent); }
+  .form-success p { font-size: 0.9375rem; color: var(--color-text-secondary); margin: 0; }
+  .form-success a { color: var(--color-accent); text-decoration: underline; }
+
+  /* Reassurance */
+  .reassurance-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .reassurance-item {
+    display: flex;
+    gap: var(--space-3);
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .reassurance-item span { color: var(--color-accent); font-weight: 600; flex-shrink: 0; }
+</style>

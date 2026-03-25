@@ -1,0 +1,223 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionWrapper from '../components/SectionWrapper.astro';
+import { SITE } from '../config';
+---
+
+<BaseLayout
+  title="Politique de confidentialité"
+  description={`Politique de confidentialité et gestion des données personnelles — ${SITE.name}.`}
+  noIndex={true}
+>
+
+  <SectionWrapper size="md" bg="default">
+    <div class="legal-content">
+      <h1>Politique de confidentialité</h1>
+      <p class="legal-intro">
+        Conforme au Règlement (UE) 2016/679 (RGPD) et à la loi Informatique et Libertés modifiée.
+        <br />Dernière mise à jour : [DATE]
+      </p>
+
+      <section class="legal-section">
+        <h2>1. Responsable du traitement</h2>
+        <p>
+          <strong>[NOM AGENCE]</strong> — [FORME JURIDIQUE]<br />
+          [ADRESSE]<br />
+          SIRET : [NUMÉRO]<br />
+          Email : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </p>
+      </section>
+
+      <section class="legal-section">
+        <h2>2. Données collectées et finalités</h2>
+
+        <h3>2.1 — Formulaire de contact</h3>
+        <p><strong>Données :</strong> Prénom, email professionnel, description du projet (optionnel).</p>
+        <p><strong>Finalité :</strong> Répondre à votre demande et organiser un appel découverte.</p>
+        <p><strong>Base légale :</strong> Mesures précontractuelles (art. 6.1.b RGPD).</p>
+        <p><strong>Conservation :</strong> 3 ans après le dernier contact.</p>
+
+        <h3>2.2 — Google Analytics 4</h3>
+        <p><strong>Données :</strong> Navigation anonymisée (pages visitées, durée de session, interactions CTA, source de trafic). IP tronquée. Aucune identification directe.</p>
+        <p><strong>Finalité :</strong> Mesure d'audience et amélioration du site.</p>
+        <p><strong>Base légale :</strong> Consentement (art. 6.1.a RGPD) — activé uniquement après acceptation via le bandeau.</p>
+        <p><strong>Sous-traitant :</strong> Google Ireland Limited, Dublin. Transfert UE encadré par CCT.</p>
+        <p><strong>Conservation :</strong> 14 mois (paramétrage GA4).</p>
+
+        <h3>2.3 — Calendly</h3>
+        <p><strong>Données :</strong> Prénom, email, créneau sélectionné — traités directement par Calendly.</p>
+        <p><strong>Base légale :</strong> Mesures précontractuelles.</p>
+        <p><strong>Sous-traitant :</strong> Calendly LLC, Atlanta, USA. Transfert encadré par CCT.</p>
+        <p><strong>Conservation :</strong> 2 ans après le dernier rendez-vous.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>3. Cookies</h2>
+        <div class="cookie-table-wrapper">
+          <table class="cookie-table">
+            <thead>
+              <tr>
+                <th>Cookie</th>
+                <th>Émetteur</th>
+                <th>Finalité</th>
+                <th>Durée</th>
+                <th>Catégorie</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>_ga, _ga_*</code></td>
+                <td>Google Analytics</td>
+                <td>Mesure d'audience</td>
+                <td>13 mois</td>
+                <td>Analytique</td>
+              </tr>
+              <tr>
+                <td><code>cc_cookie</code></td>
+                <td>CookieConsent</td>
+                <td>Mémorisation consentement</td>
+                <td>12 mois</td>
+                <td>Fonctionnel (exempté)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="cookie-note">Calendly n'est chargé qu'au clic sur le bouton de réservation — aucun cookie déposé sans action de votre part.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>4. Vos droits</h2>
+        <p>Conformément au RGPD, vous disposez des droits d'accès, rectification, effacement, portabilité, opposition et retrait du consentement.</p>
+        <p><strong>Contact :</strong> <a href={`mailto:${SITE.email}`}>{SITE.email}</a> — Réponse sous 30 jours.</p>
+        <p>Vous pouvez également introduire une réclamation auprès de la <strong>CNIL</strong> : cnil.fr</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>5. Sécurité</h2>
+        <p>Le site est servi en HTTPS (TLS 1.2+). Les données de formulaire transitent via Formspree (HTTPS). Elles ne passent pas par nos serveurs.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>6. Modifications</h2>
+        <p>Cette politique peut être mise à jour. La date de dernière mise à jour est indiquée en en-tête. Les modifications substantielles feront l'objet d'un bandeau d'information.</p>
+      </section>
+
+      <p class="legal-footer">
+        <a href="/mentions-legales">Mentions légales</a> ·
+        <a href="/">Retour à l'accueil</a>
+      </p>
+    </div>
+  </SectionWrapper>
+
+</BaseLayout>
+
+<style>
+  .legal-content {
+    max-width: var(--max-width-prose);
+    margin: 0 auto;
+  }
+
+  .legal-content h1 {
+    font-family: var(--font-body);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: var(--space-4);
+  }
+
+  .legal-intro {
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-10);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+    line-height: 1.7;
+  }
+
+  .legal-section {
+    margin-bottom: var(--space-10);
+  }
+
+  .legal-section h2 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-5);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .legal-section h3 {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+  }
+
+  .legal-section p {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-2);
+  }
+
+  .legal-section p:last-child { margin-bottom: 0; }
+
+  .legal-section a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .cookie-table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-4) 0;
+  }
+
+  .cookie-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .cookie-table th,
+  .cookie-table td {
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+  }
+
+  .cookie-table th {
+    background-color: var(--color-muted);
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .cookie-table td { color: var(--color-text-secondary); }
+
+  .cookie-table code {
+    font-family: monospace;
+    font-size: 0.8125rem;
+    background-color: var(--color-muted);
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+
+  .cookie-note {
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--color-text-secondary);
+  }
+
+  .legal-footer {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .legal-footer a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    margin: 0 var(--space-2);
+  }
+</style>

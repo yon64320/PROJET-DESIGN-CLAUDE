@@ -1,0 +1,131 @@
+---
+interface Props {
+  order: number;
+  title: string;
+  description: string;
+  deliverable: string;
+  clientTime: string;
+  duration?: string;
+  isLast?: boolean;
+}
+
+const { order, title, description, deliverable, clientTime, duration, isLast = false } = Astro.props;
+---
+
+<div class={`process-step ${isLast ? 'is-last' : ''}`}>
+  <div class="step-connector">
+    <div class="step-number">{order}</div>
+    {!isLast && <div class="step-line" aria-hidden="true"></div>}
+  </div>
+  <div class="step-content">
+    <h3 class="step-title">{title}</h3>
+    <p class="step-description">{description}</p>
+    <div class="step-meta">
+      <div class="meta-item">
+        <span class="meta-label">Livrable</span>
+        <span class="meta-value">{deliverable}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Votre temps</span>
+        <span class="meta-value">{clientTime}</span>
+      </div>
+      {duration && (
+        <div class="meta-item">
+          <span class="meta-label">Durée</span>
+          <span class="meta-value">{duration}</span>
+        </div>
+      )}
+    </div>
+  </div>
+</div>
+
+<style>
+  .process-step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: var(--space-6);
+  }
+
+  .step-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .step-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-line {
+    width: 2px;
+    flex: 1;
+    min-height: var(--space-8);
+    background-color: var(--color-border);
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .step-content {
+    padding-bottom: var(--space-10);
+  }
+
+  .is-last .step-content {
+    padding-bottom: 0;
+  }
+
+  .step-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .step-description {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+  }
+
+  .step-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background-color: var(--color-muted);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .meta-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .meta-value {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+</style>

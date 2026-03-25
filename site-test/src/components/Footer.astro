@@ -1,0 +1,171 @@
+---
+import { SITE } from '../config';
+---
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/" aria-label={`${SITE.name} — Accueil`}>
+          <img src="/logo.svg" alt={SITE.name} width="120" height="28" />
+        </a>
+        <p class="footer-tagline">{SITE.tagline}</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Navigation secondaire">
+        <ul role="list">
+          <li><a href="/offre">Offre</a></li>
+          <li><a href="/a-propos">À propos</a></li>
+          <li><a href="/realisations">Réalisations</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-cta">
+        <p>Prêt à en parler ?</p>
+        <a href={SITE.calendlyUrl} target="_blank" rel="noopener noreferrer" class="footer-cta-btn">
+          Réserver un appel découverte
+        </a>
+        <span class="footer-cta-sub">30 min — gratuit — sans engagement</span>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© {new Date().getFullYear()} {SITE.name}. Tous droits réservés.</span>
+      <nav aria-label="Liens légaux">
+        <ul role="list">
+          <li><a href="/mentions-legales">Mentions légales</a></li>
+          <li><a href="/politique-confidentialite">Politique de confidentialité</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    margin-top: auto;
+  }
+
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-16) var(--space-6) var(--space-8);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-12);
+    margin-bottom: var(--space-12);
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .footer-tagline {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    max-width: 200px;
+  }
+
+  .footer-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .footer-nav a {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    transition: color 0.15s ease;
+  }
+
+  .footer-nav a:hover {
+    color: var(--color-text-primary);
+  }
+
+  .footer-cta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .footer-cta p {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .footer-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--color-accent);
+    color: #fff;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-md);
+    transition: background-color 0.15s ease;
+    text-align: center;
+    width: fit-content;
+  }
+
+  .footer-cta-btn:hover {
+    background-color: var(--color-accent-hover);
+  }
+
+  .footer-cta-sub {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin-bottom: var(--space-6);
+  }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .footer-copy {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+  }
+
+  .footer-bottom nav ul {
+    display: flex;
+    gap: var(--space-6);
+  }
+
+  .footer-bottom nav a {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .footer-bottom nav a:hover {
+    color: var(--color-text-primary);
+  }
+
+  @media (max-width: 768px) {
+    .footer-inner { padding: var(--space-12) var(--space-4) var(--space-8); }
+    .footer-top { grid-template-columns: 1fr; gap: var(--space-8); }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>

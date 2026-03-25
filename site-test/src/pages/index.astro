@@ -1,0 +1,456 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionWrapper from '../components/SectionWrapper.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+import AccordionFAQ from '../components/AccordionFAQ.astro';
+import ProcessStep from '../components/ProcessStep.astro';
+import { SITE } from '../config';
+
+import faqData from '../content/faq.json';
+import processData from '../content/process.json';
+---
+
+<BaseLayout
+  description="Agence spécialisée en sites orientés conversion, automatisation et IA pour PME. Méthode documentée, périmètre clair, résultats trackés. Réservez un appel découverte gratuit."
+>
+
+  <!-- ===== SECTION 1 — HERO ===== -->
+  <SectionWrapper size="lg" bg="default">
+    <div class="hero">
+      <div class="hero-content">
+        <h1 class="hero-h1">
+          <span class="hero-word">Votre</span>
+          <span class="hero-word">site</span>
+          <span class="hero-word">actuel</span>
+          <span class="hero-word">vous</span>
+          <span class="hero-word">coûte</span>
+          <span class="hero-word">des</span>
+          <span class="hero-word">clients.</span>
+          <span class="hero-word">On</span>
+          <span class="hero-word">change</span>
+          <span class="hero-word">ça.</span>
+        </h1>
+
+        <p class="hero-subhead reveal">
+          On conçoit des présences digitales qui génèrent des leads qualifiés — avec une méthode documentée, un périmètre clair, et l'automatisation quand c'est utile.
+        </p>
+
+        <div class="hero-proof reveal">
+          Un process en 5 étapes. Des livrables nommés à chaque étape. 3h30 de votre temps sur l'ensemble du projet.
+        </div>
+
+        <div class="hero-ctas reveal">
+          <Button href={SITE.calendlyUrl} variant="primary" target="_blank" rel="noopener noreferrer">
+            Réserver mon appel découverte (30 min)
+          </Button>
+          <span class="hero-cta-sub">Gratuit — sans engagement</span>
+        </div>
+
+        <a href="/contact" class="hero-secondary-cta reveal">→ Demander un audit de mon site actuel</a>
+      </div>
+    </div>
+  </SectionWrapper>
+
+  <!-- ===== SECTION 2 — PROBLEM ECHO ===== -->
+  <SectionWrapper bg="surface" size="md">
+    <div class="section-header reveal">
+      <h2>Votre site existe. Mais est-ce qu'il travaille ?</h2>
+      <p class="section-intro">
+        Beaucoup de dirigeants de PME ont un site. Peu ont un site qui génère activement des demandes entrantes. La plupart ont investi dans quelque chose de "correct" — qui n'a rien changé.
+      </p>
+    </div>
+
+    <p class="problems-intro reveal"><strong>Reconnaissez-vous l'une de ces situations ?</strong></p>
+
+    <ul class="problems-list" role="list">
+      {[
+        "Mon site ne me représente plus — mais le refaire semble un chantier énorme.",
+        "On reçoit moins de contacts que nos concurrents, pourtant moins bons que nous.",
+        "J'ai un site fonctionnel, mais il ne génère aucun lead depuis des mois.",
+        "J'entends parler d'automatisation et d'IA, mais je ne sais pas par où commencer concrètement.",
+        "J'ai déjà refait mon site une fois — il était beau, mais n'a rien changé au business.",
+      ].map((problem) => (
+        <li class="problem-item reveal">
+          <span class="problem-quote" aria-hidden="true">"</span>{problem}<span class="problem-quote" aria-hidden="true">"</span>
+        </li>
+      ))}
+    </ul>
+
+    <p class="problems-cta reveal">
+      Si vous vous reconnaissez dans au moins une de ces phrases, vous êtes exactement le type de dirigeant qu'on peut aider.
+    </p>
+  </SectionWrapper>
+
+  <!-- ===== SECTION 3 — SOLUTION + 3 PILIERS ===== -->
+  <SectionWrapper bg="default" size="md">
+    <div class="section-header reveal">
+      <h2>Design, automatisation et IA — dans un seul projet, avec un seul interlocuteur.</h2>
+      <p class="section-intro">
+        Pas trois prestataires à coordonner. Pas d'agence qui livre un site "beau" sans stratégie de conversion. Pas d'IA intégrée pour faire moderne.
+      </p>
+    </div>
+
+    <div class="pillars-grid">
+      {[
+        {
+          title: "Site orienté conversion",
+          body: "Un site pensé pour déclencher des contacts, pas pour décorer. Chaque section a un job précis. Chaque CTA a une raison d'être. Le design suit la stratégie — pas l'inverse.",
+        },
+        {
+          title: "Automatisation des tâches répétitives",
+          body: "On automatise ce que vous faites déjà manuellement : qualification de leads entrants, réponses aux demandes récurrentes, tri et traitement de données. Chaque automatisation est justifiée par une tâche existante.",
+        },
+        {
+          title: "IA intégrée sur des cas concrets",
+          body: "Pas d'\"IA de pointe\". Des intégrations sur des problèmes réels : triage de demandes, assistance à la réponse client, analyse de données entrantes. Le critère : est-ce que ça résout un problème que vous avez déjà ?",
+        },
+      ].map((pillar) => (
+        <Card class="pillar-card reveal">
+          <h3 class="pillar-title">{pillar.title}</h3>
+          <p class="pillar-body">{pillar.body}</p>
+        </Card>
+      ))}
+    </div>
+
+    <div class="pillars-footer reveal">
+      <Button href="/offre" variant="secondary">Voir le détail de notre offre →</Button>
+    </div>
+  </SectionWrapper>
+
+  <!-- ===== SECTION 4 — PROCESS ===== -->
+  <SectionWrapper bg="muted" size="md" id="process">
+    <div class="section-header reveal">
+      <h2>Une méthode. Pas du flou.</h2>
+      <p class="section-intro">Vous saurez ce qui se passe à chaque étape, ce que vous avez à faire, et ce que vous recevez.</p>
+    </div>
+
+    <div class="process-list">
+      {processData.map((step, i) => (
+        <div class="reveal">
+          <ProcessStep
+            order={step.order}
+            title={step.title}
+            description={step.description}
+            deliverable={step.deliverable}
+            clientTime={step.clientTime}
+            duration={step.duration}
+            isLast={i === processData.length - 1}
+          />
+        </div>
+      ))}
+    </div>
+
+    <div class="process-total reveal">
+      Au total : <strong>3h30 de votre temps sur 4 à 6 semaines</strong>. Le reste, on s'en occupe.
+    </div>
+  </SectionWrapper>
+
+  <!-- ===== SECTION 5 — POUR QUI / PAS POUR QUI ===== -->
+  <SectionWrapper bg="surface" size="md">
+    <div class="qualification-grid">
+      <div class="qual-col reveal">
+        <h2 class="qual-title qual-yes">C'est fait pour vous si…</h2>
+        <ul role="list" class="qual-list">
+          {[
+            "Vous avez une PME de services et votre présence digitale ne génère pas de contacts qualifiés régulièrement.",
+            "Vous voulez une image en ligne à la hauteur de votre positionnement réel.",
+            "Vous perdez du temps sur des tâches répétitives qui pourraient être automatisées.",
+            "Vous cherchez un interlocuteur qui pense business avant de penser design.",
+            "Vous êtes prêt à consacrer 3h30 au projet — pas plus.",
+          ].map((item) => (
+            <li class="qual-item"><span class="qual-icon" aria-hidden="true">✓</span>{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="qual-col reveal">
+        <h2 class="qual-title qual-no">Ce n'est pas pour vous si…</h2>
+        <ul role="list" class="qual-list">
+          {[
+            "Vous cherchez un site au prix le plus bas, le plus vite possible.",
+            "Votre projet n'a pas encore d'objectif commercial défini.",
+            "Vous souhaitez décider de chaque détail visuel et chaque formulation.",
+            "Vous avez besoin d'un logiciel métier ou d'une application complexe.",
+            "Vous n'avez ni contenus disponibles ni bande passante pour les points d'étape.",
+          ].map((item) => (
+            <li class="qual-item"><span class="qual-icon qual-icon-no" aria-hidden="true">✕</span>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </SectionWrapper>
+
+  <!-- ===== SECTION 6 — RÉALISATIONS PLACEHOLDER ===== -->
+  <SectionWrapper bg="default" size="md">
+    <div class="realisations-placeholder reveal">
+      <h2>Nos premiers cas arrivent — en attendant, parlons du vôtre.</h2>
+      <p>
+        On préfère vous montrer ce qu'on fait sur votre propre projet plutôt que sur des exemples génériques. Un appel de 30 minutes, c'est suffisant pour évaluer si on peut vous aider.
+      </p>
+      <Button href={SITE.calendlyUrl} variant="primary" target="_blank" rel="noopener noreferrer">
+        Réserver mon appel découverte →
+      </Button>
+    </div>
+  </SectionWrapper>
+
+  <!-- ===== SECTION 7 — FAQ ===== -->
+  <SectionWrapper bg="muted" size="md">
+    <div class="section-header reveal">
+      <h2>Ce qu'on nous demande souvent</h2>
+    </div>
+    <div class="reveal">
+      <AccordionFAQ items={faqData} />
+    </div>
+  </SectionWrapper>
+
+  <!-- ===== SECTION 8 — CTA FINAL ===== -->
+  <SectionWrapper bg="surface" size="lg">
+    <div class="cta-final reveal">
+      <h2>Un appel. 30 minutes. On évalue ensemble.</h2>
+      <p class="cta-final-text">
+        Pas de présentation commerciale. Pas de présentation de nos "offres". On écoute votre situation, on évalue si notre approche correspond, et on vous dit franchement si ce n'est pas le bon fit.
+      </p>
+
+      <div class="calendly-section">
+        <Button variant="primary" id="open-calendly">
+          Voir les créneaux disponibles
+        </Button>
+        <span class="cta-sub">Gratuit — sans engagement</span>
+        <div id="calendly-widget" style="display:none; margin-top: 1.5rem; width: 100%;"></div>
+      </div>
+
+      <p class="cta-fallback-text">
+        Vous préférez écrire d'abord ? <a href="/contact" class="text-link">Utilisez le formulaire →</a>
+      </p>
+    </div>
+  </SectionWrapper>
+
+</BaseLayout>
+
+<script define:vars={{ calendlyUrl: SITE.calendlyUrl }}>
+  document.getElementById('open-calendly')?.addEventListener('click', () => {
+    const widget = document.getElementById('calendly-widget');
+    if (!widget) return;
+
+    const s = document.createElement('script');
+    s.src = 'https://assets.calendly.com/assets/external/widget.js';
+    document.head.appendChild(s);
+    s.onload = () => {
+      if (typeof Calendly !== 'undefined') {
+        Calendly.initInlineWidget({ url: calendlyUrl, parentElement: widget });
+      }
+    };
+    widget.style.display = 'block';
+  });
+</script>
+
+<style>
+  .hero {
+    max-width: var(--max-width-prose);
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+    width: 100%;
+  }
+
+  .hero-h1 { margin-bottom: 0; }
+
+  .hero-subhead {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    max-width: 600px;
+  }
+
+  .hero-proof {
+    display: inline-block;
+    background-color: var(--color-muted);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-6);
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .hero-cta-sub { font-size: 0.8125rem; color: var(--color-text-secondary); }
+
+  .hero-secondary-cta {
+    font-size: 0.9375rem;
+    color: var(--color-accent);
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+  .hero-secondary-cta:hover { color: var(--color-accent-hover); }
+
+  .section-header {
+    max-width: var(--max-width-prose);
+    margin: 0 auto var(--space-10);
+    text-align: center;
+  }
+
+  .section-intro {
+    margin-top: var(--space-4);
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .problems-intro {
+    text-align: center;
+    margin-bottom: var(--space-6);
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+  }
+
+  .problems-list {
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .problem-item {
+    background-color: var(--color-muted);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-6);
+    font-style: italic;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .problem-quote { color: var(--color-accent); font-style: normal; }
+
+  .problems-cta {
+    text-align: center;
+    margin-top: var(--space-8);
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  .pillar-title { margin-bottom: var(--space-3); font-size: 1.0625rem; }
+  .pillar-body { font-size: 0.9375rem; line-height: 1.7; }
+
+  .pillars-footer { margin-top: var(--space-10); text-align: center; }
+
+  @media (max-width: 900px) {
+    .pillars-grid { grid-template-columns: 1fr; }
+  }
+
+  .process-list { max-width: 640px; margin: 0 auto; }
+
+  .process-total {
+    max-width: 640px;
+    margin: var(--space-8) auto 0;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-6);
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+  }
+
+  .qualification-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  .qual-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid;
+  }
+
+  .qual-yes { color: var(--color-accent); border-color: var(--color-accent); }
+  .qual-no { color: var(--color-text-secondary); border-color: var(--color-border); }
+
+  .qual-list { display: flex; flex-direction: column; gap: var(--space-3); }
+
+  .qual-item {
+    display: flex;
+    gap: var(--space-3);
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .qual-icon { color: var(--color-accent); font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .qual-icon-no { color: var(--color-text-secondary); opacity: 0.6; }
+
+  @media (max-width: 768px) {
+    .qualification-grid { grid-template-columns: 1fr; }
+  }
+
+  .realisations-placeholder {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .cta-final {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .cta-final-text {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+  }
+
+  .calendly-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .cta-sub { font-size: 0.8125rem; color: var(--color-text-secondary); }
+
+  .cta-fallback-text { font-size: 0.9375rem; color: var(--color-text-secondary); }
+
+  .text-link { color: var(--color-accent); font-weight: 500; }
+  .text-link:hover { color: var(--color-accent-hover); }
+</style>

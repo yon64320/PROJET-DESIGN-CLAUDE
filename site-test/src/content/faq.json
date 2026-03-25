@@ -1,0 +1,32 @@
+[
+  {
+    "id": "site-existant",
+    "question": "On a déjà un site, pourquoi le refaire ?",
+    "answer": "On commence par un audit de l'existant — gratuit et sans engagement. Si votre site génère des leads qualifiés régulièrement, on vous le dit. S'il ne le fait pas, ou moins qu'il ne devrait, on vous explique pourquoi et quelles sont les options. Pas de refonte par défaut."
+  },
+  {
+    "id": "clients-garantis",
+    "question": "Est-ce que ça va vraiment nous apporter des clients ?",
+    "answer": "On ne peut pas le garantir contractuellement — et quiconque le ferait mentirait. Ce qu'on peut garantir : chaque page est conçue avec un objectif de conversion mesurable, le tracking est en place dès le lancement, et les résultats sont visibles. On évalue les attentes réalistes ensemble lors de l'appel découverte."
+  },
+  {
+    "id": "beau-inutile",
+    "question": "J'ai peur que ce soit beau mais inutile.",
+    "answer": "C'est l'erreur la plus fréquente dans le secteur. Notre réponse est structurelle : on ne commence pas par la maquette. On commence par le cadrage business — objectifs, audience, messages prioritaires. Le design suit cette stratégie. Si un élément visuel ne sert pas la conversion, il n'est pas là."
+  },
+  {
+    "id": "pas-le-temps",
+    "question": "On n'a pas le temps de gérer un gros projet.",
+    "answer": "Notre process est calibré pour demander le minimum de votre temps. Au total : entre 3h30 et 4h sur 4 à 6 semaines — réparties en 4 sessions courtes. Entre les sessions, vous avez des livrables à valider, pas à produire. On produit. Vous validez."
+  },
+  {
+    "id": "trop-cher",
+    "question": "J'ai peur que ce soit trop cher.",
+    "answer": "Un site qui génère 2 nouveaux clients qualifiés par mois se finance en quelques semaines selon votre ticket moyen. On calcule ça ensemble lors de l'appel découverte. Si le retour sur investissement n'est pas tangible à votre niveau, on vous le dit franchement avant de commencer."
+  },
+  {
+    "id": "ia-gadget",
+    "question": "L'IA, je ne veux pas d'un gadget.",
+    "answer": "On n'intègre pas l'IA pour faire moderne. On l'intègre quand elle résout un problème que vous avez déjà : trier des demandes, répondre aux questions récurrentes, traiter des données. Le critère est simple : est-ce que ça économise du temps mesurable sur une tâche que vous faites manuellement aujourd'hui ? Si non, on ne le propose pas."
+  }
+]

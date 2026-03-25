@@ -1,0 +1,85 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+import { SITE } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description = `Agence spécialisée en sites orientés conversion, automatisation et IA pour PME. Méthode documentée, périmètre clair, résultats trackés. Réservez un appel découverte gratuit.`,
+  noIndex = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} — Présence digitale, conversion et automatisation pour PME`;
+const currentPath = new URL(Astro.request.url).pathname;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    {noIndex && <meta name="robots" content="noindex" />}
+    <title>{pageTitle}</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="canonical" href={`${SITE.url}${currentPath}`} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={`${SITE.url}${currentPath}`} />
+
+    <!-- CookieConsent CSS (will be loaded inline) -->
+    <style>
+      /* CookieConsent minimal override — full config in cc-init.js */
+      #cc-main {
+        --cc-font-family: var(--font-body, -apple-system, sans-serif);
+        --cc-primary-color: #2D4A3E;
+        --cc-btn-primary-bg: #2D4A3E;
+        --cc-btn-primary-hover-bg: #1E3329;
+        --cc-overlay-bg: rgba(26, 26, 26, 0.6);
+        --cc-modal-border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <Nav currentPath={currentPath} />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- Scroll reveal -->
+    <script>
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+
+    <!-- GA4 — loaded only after consent -->
+    <!-- CookieConsent v3 (Orestbida) -->
+    <!--
+    <script type="module" src="/js/cc-init.js"></script>
+    -->
+    <!-- Uncomment and configure after setting up CookieConsent + GA4 IDs in config.ts -->
+  </body>
+</html>
