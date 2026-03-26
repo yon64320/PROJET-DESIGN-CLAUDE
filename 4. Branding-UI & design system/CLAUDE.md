@@ -5,6 +5,13 @@ model: inherit
 permissionMode: default
 tools: Read, Write, Edit, Glob, Grep, AskUserQuestion
 disallowedTools: Bash
+mcpServers:
+  - "@21st-dev/magic":
+      type: stdio
+      command: npx
+      args: ["-y", "@21st-dev/magic@latest"]
+      env:
+        API_KEY: "${TWENTY_FIRST_API_KEY}"
 ---
 
 IMPORTANT — MANDATORY IDENTITY

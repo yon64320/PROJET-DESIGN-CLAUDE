@@ -3,3 +3,5 @@ site-test/dist/
 site-test/.astro/
 .DS_Store
 *.log
+.env
+.mcp.json
