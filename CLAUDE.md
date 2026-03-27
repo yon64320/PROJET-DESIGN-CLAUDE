@@ -29,7 +29,7 @@ You are the conductor of a 6-agent pipeline that produces non-generic, conversio
 | 1 | `1. Stratégie & cadrage/` | vitrine-strategie | Business framing, promise, proof |
 | 2 | `2. Architecture & UX conversion/` | vitrine-ux-architecture | IA, journeys, page specs |
 | 3 | `3. Contenu & copywriting/` | vitrine-copywriting | Persuasive copy, on-page SEO |
-| 4 | `4. Branding-UI & design system/` | vitrine-ui-design-system | Design brief, tokens, motion |
+| 4 | `4. Branding-UI & design system/` | vitrine-ui-design-system | Design brief, semantic tokens (W3C), theming, motion budgets, handoff table, preview+critique loop |
 | 5 | `5. Technique & intégrations/` | vitrine-tech-stack | Stack, CMS, integrations |
 | 6 | `6. QA & optimisation/` | vitrine-qa-optimisation | QA, go-live, backlog |
 
@@ -42,7 +42,7 @@ Before launching an agent, verify its prerequisites are met:
 **Gate 2 (UX)**: conversion objective defined, promise v1, proof inventory (even incomplete), primary CTA
 **Gate 3 (Copy)**: stable page specs v1, message architecture, proof inventory
 **Gate 4 (UI)**: stable copy v1, proof identified, brand constraints
-**Gate 5 (Tech)**: design brief + effects strategy, editing needs clarified, integrations listed
+**Gate 5 (Tech)**: design brief + effects strategy + component handoff table + .tokens.json + dark mode overrides, editing needs clarified, integrations listed
 **Gate 6 (QA)**: tech execution brief, tracking plan, build or complete deliverables
 
 If a prerequisite is missing: flag it to the user, do not launch the agent.
@@ -59,7 +59,7 @@ Any other parallelization requires user approval.
 1 → 2,3: Strategic brief, message architecture, proof inventory, conversion map
 2 → 3,4: Sitemap, page specs v1, journeys
 3 → 4,5: Copy v1, microcopy, asset constraints, on-page SEO v0
-4 → 5: Design brief, design system v1, motion/effects strategy, perf constraints
+4 → 5: Design brief, design system v1 (semantic tokens + .tokens.json W3C), component handoff table (states/tokens/animation/responsive/a11y per component), motion/effects strategy (with budgets), dark mode token overrides, perf constraints
 5 → 6: Tech execution brief, stack decision log, integrations plan, tracking plan
 6 → 3,4,5: Prioritized QA report (each issue routed to its owner)
 

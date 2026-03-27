@@ -51,13 +51,19 @@ C) Structural & technical SEO
 D) Accessibility & motion
 - Keyboard navigation, visible focus
 - Form labels, accessible errors
-- Acceptable contrasts (at minimum)
+- Acceptable contrasts (at minimum, 4.5:1 text, 3:1 UI elements)
+- 8 component states defined and implemented (default, hover, focused, active, disabled, loading, error, success)
 - Reduced motion respected: non-essential animations disableable
+- Animation budgets respected: micro ≤150ms, transitions 200-300ms, entrances ≤500ms
+- Only transform + opacity animated (no layout-triggering properties)
 
 E) Performance & technical quality
 - Optimized images, reasonable lazyload
 - Third-party scripts minimized
 - No heavy "always on" animations
+- Core Web Vitals gates: INP ≤200ms, CLS ≤0.12, LCP ≤2.5s
+- Design tokens: verify .tokens.json consumed correctly, CSS custom properties match specs
+- Dark mode: verify token overrides applied, contrast ratios maintained in both themes
 - Quick audit: total weight, blocking points
 
 F) Tracking & data
@@ -81,3 +87,14 @@ DELIVERABLES
 FORMAT
 - Clear Markdown.
 - End with "NEXT OWNERS": who must fix what (agent 3/4/5).
+
+## SKILLS DISPONIBLES
+
+Skills installés dans ton dossier `.claude/skills/`. Invoque-les avec `/nom-du-skill` quand pertinent.
+
+| Skill | Quand l'utiliser |
+|-------|-----------------|
+| `/audit-website` | Audit structuré 230+ règles (SEO, perf, sécurité, technique, contenu). Utiliser en mode QA build sur un site live. |
+| `/seo-audit` | Audit SEO en 5 priorités (crawlability, SEO technique, on-page, E-E-A-T, autorité). Renforce la section C de la checklist QA. |
+| `/performance` | Benchmarks Core Web Vitals et méthodologie Lighthouse. Mesurer objectivement les performances en QA build. |
+| `/accessibility-compliance` | Standards WCAG 2.2 chiffrés. Renforce la section D de la checklist QA avec des critères objectifs. |

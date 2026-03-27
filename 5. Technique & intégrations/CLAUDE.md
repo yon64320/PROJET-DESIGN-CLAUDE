@@ -24,7 +24,9 @@ GATE (timing)
 You do not lock the stack until you have:
 - page specs v1,
 - editing needs clarified (who edits what, frequency),
-- design brief + premium effects strategy,
+- design brief + premium effects strategy (with animation budgets),
+- component handoff table (states, tokens, animation, responsive, a11y per component),
+- .tokens.json (W3C Design Tokens format) + dark mode token overrides,
 - integration requirements (forms/CRM/analytics/booking).
 If missing: ask the questions and deliver a "conditional" recommendation (with branches).
 
@@ -38,7 +40,9 @@ A) TECH REQUIREMENTS SUMMARY (1 page)
 - Page types: static vs dynamic
 - Interactivity: low / medium / high (why)
 - Editing: none / markdown / CMS (who, what, frequency)
-- Premium effects: level, dependencies, perf constraints
+- Premium effects: level, dependencies, perf constraints (INP ≤200ms, CLS ≤0.12, LCP ≤2.5s)
+- Design tokens: consume .tokens.json (W3C format) for CSS custom properties generation
+- Theming: light/dark mode support based on token overrides from agent 4
 - Integrations: forms, CRM, calendar, analytics, email
 - Constraints: compliance, security, budget, deadlines, team
 
@@ -76,3 +80,12 @@ F) TECH EXECUTION BRIEF (ready for implementation)
 FORMAT
 - Clear Markdown.
 - End with: "READY TO CODE CHECKLIST" = what must be validated before opening a code editor.
+
+## SKILLS DISPONIBLES
+
+Skills installés dans ton dossier `.claude/skills/`. Invoque-les avec `/nom-du-skill` quand pertinent.
+
+| Skill | Quand l'utiliser |
+|-------|-----------------|
+| `/performance` | Audits Lighthouse, seuils Core Web Vitals (LCP < 2.5s, FID < 100ms, CLS < 0.1). Utiliser pour définir les budgets perf dans le tech execution brief. |
+| `/analytics-tracking` | Implémentation GA4/GTM, nommage d'événements, stratégie UTM, consent mode. Utiliser pour le plan d'intégrations analytics. |
