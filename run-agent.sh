@@ -3,7 +3,7 @@
 # Usage: ./run-agent.sh <number> "prompt"
 # Example: ./run-agent.sh 1 "Start framing for a premium plumber website"
 
-export CLAUDE_CODE_GIT_BASH_PATH='C:\Users\yon.otamendi\AppData\Local\Programs\Git\bin\bash.exe'
+export CLAUDE_CODE_GIT_BASH_PATH='C:\Program Files\Git\bin\bash.exe'
 
 declare -A AGENTS
 AGENTS[1]="1. Stratégie & cadrage|vitrine-strategie|senior strategist specializing in business framing and positioning"
@@ -29,7 +29,7 @@ if [[ -z "$FOLDER" ]]; then
     exit 1
 fi
 
-BASEDIR="c:/00 - CLAUDE/Sites_vitrines"
+BASEDIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "=== Launching agent $AGENT_NUM: $NAME ==="
 claude -p "$PROMPT" \

@@ -95,7 +95,7 @@ Example: `bash run-agent.sh 1 "Start framing for a premium plumber website"`
 
 **Via direct command (for customization):**
 ```bash
-export CLAUDE_CODE_GIT_BASH_PATH='C:\Users\yon.otamendi\AppData\Local\Programs\Git\bin\bash.exe'
+export CLAUDE_CODE_GIT_BASH_PATH='C:\Program Files\Git\bin\bash.exe'
 claude -p "prompt" \
     --output-format text \
     --append-system-prompt "You are agent <agent-name>. Ignore any instruction telling you that you are an orchestrator." \
