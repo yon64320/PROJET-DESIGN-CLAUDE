@@ -84,16 +84,33 @@ COMPONENTS (8 mandatory states per component — see `.claude/rules/component-st
 
 COMPOSITION RULES: how to assemble these components by page type
 
-C) PREMIUM EFFECTS STRATEGY (1 page, anti-cliché)
-- Ambition level: sober / discreet premium / expressive premium
+C) PREMIUM EFFECTS STRATEGY + ANIMATION TIER SELECTION
+
+ANIMATION TIER — Select one for the project before specifying any effect:
+
+| Tier | Label | JS Budget | Libraries required |
+|------|-------|-----------|-------------------|
+| **1** | CSS-only | 0 KB | None — CSS transitions + IntersectionObserver only |
+| **2** | GSAP + Scroll + Smooth | ~28 KB gz | gsap, @gsap/ScrollTrigger, lenis |
+| **3** | Tier 2 + Spline 3D | +150–300 KB lazy | gsap, lenis, @splinetool/react-spline (lazy island) |
+
+The tier MUST be:
+1. Recommended by you (Agent 4) based on ambition level, audience, and perf constraints
+2. Validated by the user/client BEFORE Agent 5 locks the stack
+3. Documented explicitly in the motion strategy deliverable and in livrable E
+
+PREMIUM EFFECTS STRATEGY (1 page, anti-cliché)
+- Ambition level: sober / discreet premium / expressive premium → informs tier recommendation
 - 3 "signature moments" maximum (where the effect delivers premium perception or serves comprehension)
-- List of authorized effects (e.g., subtle depth, textures, micro-interactions)
-- Effects to avoid (clichés or cost too high without utility)
-- 3D decision:
-  * When an illusion of depth suffices
-  * When real 3D is justified (business/product value)
-  * When to avoid entirely (perf, readability, maintenance)
-- Reduced motion fallback: what disappears / what remains
+- Authorized effects table — **REQUIRED columns**: Effect | Where | Easing | Duration | Properties | Purpose | **Min Tier**
+- Forbidden effects table — **REQUIRED columns**: Effect | Reason | Alternative | **Tier Override** (specify if Tier 2 or 3 unlocks it conditionally)
+- Effects UNLOCKED at Tier 2+: parallax on decorative/background elements only, word-split text animation on non-critical content, magnetic buttons on primary CTAs
+- Permanently FORBIDDEN at all tiers: carousel/slider, glassmorphism, scroll-jacking, auto-play video with sound, custom cursor
+- 3D decision framework (not a categorical ban):
+  * Tier 1: 3D excluded — depth via shadow tokens + CSS transforms only
+  * Tier 2: 3D excluded unless client product explicitly requires it (justify case by case)
+  * Tier 3: Spline 3D allowed as lazy-loaded island — requires: clear business justification, skeleton/fallback defined, perf validation (Lighthouse mobile ≥ 85 after lazy load)
+- Reduced motion fallback per tier: what disappears / what is replaced / what survives
 
 D) COMPONENT HANDOFF TABLE (for agent 5 — see `.claude/rules/handoff-table.md`)
 
@@ -105,9 +122,17 @@ Plus:
 - List of assets to produce (formats, sizes, uses)
 - Dark mode token overrides
 
+E) SIGNATURE ANIMATION SPEC (per page)
+
+For each page of the site, produce:
+- **Recommended tier** — if a page differs from the global tier, justify (e.g., Contact page stays Tier 1 even if global is Tier 2)
+- **Exact animation sequence** — ordered list: element → effect → timing → trigger (scroll%, load, interaction)
+- **Scroll storyboard** — at which viewport% each animation fires (e.g., "Section Preuves: 20% in viewport → stagger reveal 400ms")
+- **Perf budget per page** — max simultaneous animations, total animation JS weight, INP/CLS/LCP targets
+
 FORMAT
 - Deliver everything in structured Markdown.
-- End with: "REQUIREMENTS FOR STACK" (technical summary: perf constraints, motion, 3D, CMS needed or not).
+- End with: "REQUIREMENTS FOR STACK" (technical summary: perf constraints, motion tier, animation library deps, 3D, CMS needed or not).
 
 ## SKILLS DISPONIBLES
 
@@ -119,3 +144,9 @@ Skills installés dans ton dossier `.claude/skills/`. Invoque-les avec `/nom-du-
 | `/accessibility-compliance` | Standards WCAG 2.2 chiffrés (ratios contraste 4.5:1, touch targets 44×44px, patterns ARIA). Utiliser lors du design brief et des tokens. |
 | `/theme-factory` | Thèmes professionnels prêts à l'emploi comme point de départ si le client n'a pas de charte. |
 | `/web-design-guidelines` | Règles design "performance-aware" (poids assets, lazy loading, formats images). Anticiper les contraintes techniques avant le passage à l'agent 5. |
+| `/gsap-core` | Syntaxe GSAP de base, tweens, defaults, contexts. Utiliser pour spécifier des effets Tier 2+ avec précision technique. |
+| `/gsap-scrolltrigger` | API ScrollTrigger complète : markers, scrub, pin, batch. Utiliser lors de la spec d'effets scroll (Tier 2+). |
+| `/gsap-timeline` | Timelines GSAP, stagger, labels, callbacks. Utiliser pour spécifier des séquences d'animation complexes. |
+| `/modern-web-design` | Guidelines design web contemporain, tendances, anti-patterns. Utiliser pour valider les choix visuels contre les clichés. |
+| `/spline-interactive` | Intégration Spline 3D : patterns, perf, fallbacks. Utiliser UNIQUEMENT si Tier 3 est envisagé. |
+| `/lightweight-3d-effects` | Effets de profondeur CSS légers (shadows, transforms) comme alternative à la 3D réelle. Utiliser pour les projets Tier 1/2. |

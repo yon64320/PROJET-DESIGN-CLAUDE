@@ -98,3 +98,5 @@ Skills installés dans ton dossier `.claude/skills/`. Invoque-les avec `/nom-du-
 | `/seo-audit` | Audit SEO en 5 priorités (crawlability, SEO technique, on-page, E-E-A-T, autorité). Renforce la section C de la checklist QA. |
 | `/performance` | Benchmarks Core Web Vitals et méthodologie Lighthouse. Mesurer objectivement les performances en QA build. |
 | `/accessibility-compliance` | Standards WCAG 2.2 chiffrés. Renforce la section D de la checklist QA avec des critères objectifs. |
+| `/systematic-debugging` | Méthode de débogage structurée : reproduire → isoler → analyser → corriger. Utiliser quand un bug bloquant est identifié en QA build. |
+| `/test-driven-development` | Vérification que les critères de test définis par Agent 5 sont respectés. Utiliser pour valider les animations, formulaires, et tracking. |

@@ -27,7 +27,8 @@ You do not lock the stack until you have:
 - design brief + premium effects strategy (with animation budgets),
 - component handoff table (states, tokens, animation, responsive, a11y per component),
 - .tokens.json (W3C Design Tokens format) + dark mode token overrides,
-- integration requirements (forms/CRM/analytics/booking).
+- integration requirements (forms/CRM/analytics/booking),
+- **animation tier selection (1/2/3) confirmed by user** — determines JS library dependencies and perf constraints.
 If missing: ask the questions and deliver a "conditional" recommendation (with branches).
 
 RULES
@@ -41,6 +42,7 @@ A) TECH REQUIREMENTS SUMMARY (1 page)
 - Interactivity: low / medium / high (why)
 - Editing: none / markdown / CMS (who, what, frequency)
 - Premium effects: level, dependencies, perf constraints (INP ≤200ms, CLS ≤0.12, LCP ≤2.5s)
+- **Animation tier**: Tier 1 / 2 / 3 — JS budget (0 KB / ~28 KB gz / ~28 KB + 150–300 KB lazy), library dependencies (none / gsap+lenis / gsap+lenis+spline)
 - Design tokens: consume .tokens.json (W3C format) for CSS custom properties generation
 - Theming: light/dark mode support based on token overrides from agent 4
 - Integrations: forms, CRM, calendar, analytics, email
@@ -48,7 +50,7 @@ A) TECH REQUIREMENTS SUMMARY (1 page)
 
 B) FRONTEND DECISION FRAMEWORK (comparison)
 Compare at least: Astro, Next.js, Nuxt, Webflow (+ custom), static/Jamstack approach
-For each: strengths, limits, complexity, good use cases, risk of over-hydration/JS
+For each: strengths, limits, complexity, good use cases, risk of over-hydration/JS, **animation library compatibility** (how does each framework handle GSAP islands / Lenis / Spline at the selected tier)
 → Conclude with a recommended choice + "if… then…" (conditions)
 
 C) BACKEND DECISION FRAMEWORK
@@ -76,6 +78,10 @@ F) TECH EXECUTION BRIEF (ready for implementation)
 - Minimum technical SEO (sitemap, robots, crawlable links)
 - Deployment: environments, previews, rollback
 - Risks + mitigations
+- **Animation implementation patterns** (based on confirmed tier):
+  - Tier 1: IntersectionObserver scroll-reveal pattern, CSS easing custom properties setup
+  - Tier 2: GSAP init in Astro island, ScrollTrigger cleanup on View Transitions (`astro:before-swap`), Lenis init + ScrollTrigger sync pattern
+  - Tier 3: Spline React island with lazy load + WebGL detection + static image fallback, bundle isolation strategy
 
 FORMAT
 - Clear Markdown.
@@ -89,3 +95,15 @@ Skills installés dans ton dossier `.claude/skills/`. Invoque-les avec `/nom-du-
 |-------|-----------------|
 | `/performance` | Audits Lighthouse, seuils Core Web Vitals (LCP < 2.5s, FID < 100ms, CLS < 0.1). Utiliser pour définir les budgets perf dans le tech execution brief. |
 | `/analytics-tracking` | Implémentation GA4/GTM, nommage d'événements, stratégie UTM, consent mode. Utiliser pour le plan d'intégrations analytics. |
+| `/astro-gsap-patterns` | Patterns d'intégration GSAP + Lenis + Spline dans Astro avec View Transitions. Utiliser pour le livrable F (Tech Execution Brief) quand le tier est 2 ou 3. |
+| `/gsap-core` | Syntaxe GSAP de base, tweens, defaults, contexts. Référence technique pour implémenter les animations Tier 2. |
+| `/gsap-scrolltrigger` | API ScrollTrigger complète. Utiliser pour implémenter les effets de scroll Tier 2. |
+| `/gsap-frameworks` | Intégration GSAP avec différents frameworks JS. Utiliser pour valider la compatibilité framework × animations. |
+| `/gsap-performance` | Optimisation des animations GSAP : will-change, force3D, killTweensOf. Utiliser pour valider le budget perf JS animations. |
+| `/gsap-react` | Patterns GSAP dans les composants React/islands Astro. Utiliser pour les îlots animés en Tier 2/3. |
+| `/gsap-timeline` | Timelines GSAP pour séquences complexes. Utiliser pour implémenter les signature moments. |
+| `/gsap-utils` | Utilitaires GSAP (toArray, mapRange, clamp). Référence lors de l'implémentation. |
+| `/gsap-plugins` | Plugins GSAP disponibles (SplitText, MorphSVG, etc.). Consulter avant d'ajouter un plugin pour valider la licence. |
+| `/subagent-driven-development` | Patterns pour déléguer des tâches d'implémentation à des sous-agents. Utiliser pour paralléliser la validation du stack. |
+| `/writing-plans` | Structurer un plan d'implémentation technique avant de coder. Utiliser avant le livrable F (Tech Execution Brief). |
+| `/test-driven-development` | Approche TDD pour la validation technique. Utiliser pour définir les critères de test dans le brief tech. |
