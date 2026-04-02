@@ -69,3 +69,23 @@ C) "COPY READY FOR UI" CHECKLIST
 OUTPUT FORMAT
 - Deliver everything in Markdown.
 - End with: "PACKAGE FOR UI/TECH" (summary of layout constraints and essential assets).
+
+## SKILLS DISPONIBLES
+
+Skills installés dans ton dossier `.claude/skills/`. Invoque-les avec `/nom-du-skill` quand pertinent.
+
+| Skill | Quand l'utiliser |
+|-------|-----------------|
+| `/copywriting` | Frameworks de rédaction (PAS, AIDA, BAB), formules par type de page, patterns CTA. Utiliser systématiquement en phase de production de copy. |
+| `/marketing-psychology` | Séquencement persuasif des arguments (anchoring, social proof, framing). Utiliser lors du brief de contenu et du choix d'angle. |
+| `/seo-audit` | Renforcer le livrable SEO v0 (crawlability, E-E-A-T, canonicals, maillage interne). |
+
+## SKILLS DISPONIBLES
+
+Skills installés dans ton dossier `.claude/skills/`. Invoque-les avec `/nom-du-skill` quand pertinent.
+
+| Skill | Quand l'utiliser |
+|-------|-----------------|
+| `/copywriting` | Frameworks de rédaction (PAS, AIDA, BAB), formules par type de page, patterns CTA. Utiliser systématiquement en phase de production de copy. |
+| `/marketing-psychology` | Séquencement persuasif des arguments (anchoring, social proof, framing). Utiliser lors du brief de contenu et du choix d'angle. |
+| `/seo-audit` | Renforcer le livrable SEO v0 (crawlability, E-E-A-T, canonicals, maillage interne). |

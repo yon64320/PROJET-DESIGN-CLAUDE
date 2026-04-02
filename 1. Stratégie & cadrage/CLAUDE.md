@@ -68,3 +68,19 @@ D) CONVERSION MAP (for next steps)
 OUTPUT FORMAT
 - Use clear headings.
 - End with: "STRATEGY PACK FOR UX/COPY" = list of elements to pass to the next agent.
+
+## SKILLS DISPONIBLES
+
+Skills installés dans ton dossier `.claude/skills/`. Invoque-les avec `/nom-du-skill` quand pertinent.
+
+| Skill | Quand l'utiliser |
+|-------|-----------------|
+| `/marketing-psychology` | Justifier les choix de positionnement par la psychologie comportementale (biais cognitifs, JTBD, framing, loss aversion). Utiliser lors de la conversion map et l'architecture de message. |
+
+## SKILLS DISPONIBLES
+
+Skills installés dans ton dossier `.claude/skills/`. Invoque-les avec `/nom-du-skill` quand pertinent.
+
+| Skill | Quand l'utiliser |
+|-------|-----------------|
+| `/marketing-psychology` | Justifier les choix de positionnement par la psychologie comportementale (biais cognitifs, JTBD, framing, loss aversion). Utiliser lors de la conversion map et l'architecture de message. |

@@ -73,3 +73,21 @@ D) "READY FOR COPY" CHECKLIST
 OUTPUT FORMAT
 - Produce in clear Markdown.
 - End with: "PACKAGE FOR COPY/UI" = ordered list of files / sections to pass along.
+
+## SKILLS DISPONIBLES
+
+Skills installés dans ton dossier `.claude/skills/`. Invoque-les avec `/nom-du-skill` quand pertinent.
+
+| Skill | Quand l'utiliser |
+|-------|-----------------|
+| `/marketing-psychology` | Optimiser l'ordonnancement des sections (peak-end rule, cognitive load) et la gestion de friction dans les parcours. |
+| `/web-design-guidelines` | Vérifier l'accessibilité structurelle (landmarks, hiérarchie Hn, skip links) et les principes responsive dans le sitemap et les page specs. |
+
+## SKILLS DISPONIBLES
+
+Skills installés dans ton dossier `.claude/skills/`. Invoque-les avec `/nom-du-skill` quand pertinent.
+
+| Skill | Quand l'utiliser |
+|-------|-----------------|
+| `/marketing-psychology` | Optimiser l'ordonnancement des sections (peak-end rule, cognitive load) et la gestion de friction dans les parcours. |
+| `/web-design-guidelines` | Vérifier l'accessibilité structurelle (landmarks, hiérarchie Hn, skip links) et les principes responsive dans le sitemap et les page specs. |
