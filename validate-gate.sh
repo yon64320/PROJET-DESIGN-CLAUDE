@@ -39,7 +39,7 @@ check_content() {
 }
 
 if [[ -z "$AGENT_NUM" ]]; then
-    echo "Usage: ./validate-gate.sh <1-6> [project-name]"
+    echo "Usage: ./validate-gate.sh <1-8> [project-name]"
     exit 1
 fi
 
@@ -83,8 +83,32 @@ case "$AGENT_NUM" in
         check_file "*/5. Technique*/tech-stack-v1-${PROJECT}.md" "Tech stack / execution brief"
         check_content "*/5. Technique*/tech-stack-v1-${PROJECT}.md" "tracking\|analytics\|événement" "Tracking plan"
         ;;
+    7)
+        echo "Gate 7 (Integration): all 6 agent deliverables must be present"
+        check_file "*/1. Strat*/pack-strategie-${PROJECT}.md" "Pack strategie (Agent 1)"
+        check_file "*/2. Arch*/UX-Architecture-*${PROJECT}*.md" "UX Architecture (Agent 2)"
+        check_file "*/3. Contenu*/copy-v1-${PROJECT}.md" "Copy v1 (Agent 3)"
+        check_file "*/4. Branding*/design-system-v1-${PROJECT}.md" "Design system (Agent 4)"
+        check_file "*/4. Branding*/tokens.json" "tokens.json (Agent 4)"
+        check_file "*/4. Branding*/component-handoff-${PROJECT}.md" "Component handoff (Agent 4)"
+        check_file "*/4. Branding*/motion-strategy-${PROJECT}.md" "Motion strategy (Agent 4)"
+        check_content "*/4. Branding*/motion-strategy-${PROJECT}.md" "SÉLECTIONNÉ\|sélectionné\|selected\|Tier.*confirmed\|tier.*validé" "Animation tier confirmed"
+        check_file "*/5. Technique*/tech-stack-v1-${PROJECT}.md" "Tech stack (Agent 5)"
+        check_file "*/6. QA*/qa-report-v1-${PROJECT}.md" "QA report (Agent 6)"
+        ;;
+    8)
+        echo "Gate 8 (Deployment): build success + tech stack + QA go-live + copy v1"
+        check_file "*/7. Int*/build-report-${PROJECT}.md" "Build report (Agent 7)"
+        check_content "*/7. Int*/build-report-${PROJECT}.md" "READY FOR QA\|ready for qa\|Build status.*success\|SUCCESS" "Build success confirmed"
+        check_file "*/7. Int*/implementation-plan-${PROJECT}.md" "Implementation plan (Agent 7)"
+        check_file "*/5. Technique*/tech-stack-v1-${PROJECT}.md" "Tech stack (Agent 5)"
+        check_content "*/5. Technique*/tech-stack-v1-${PROJECT}.md" "deploy\|Deploy\|hosting\|Hosting\|hébergement" "Deployment section present"
+        check_file "*/6. QA*/qa-report-v1-${PROJECT}.md" "QA report (Agent 6)"
+        check_content "*/6. QA*/qa-report-v1-${PROJECT}.md" "GO\|go-live\|GO avec réserves" "GO-LIVE gate status"
+        check_file "*/3. Contenu*/copy-v1-${PROJECT}.md" "Copy v1 (Agent 3 — for CMS seeding and meta verification)"
+        ;;
     *)
-        echo "Unknown agent: $AGENT_NUM. Use 1-6."
+        echo "Unknown agent: $AGENT_NUM. Use 1-8."
         exit 1
         ;;
 esac

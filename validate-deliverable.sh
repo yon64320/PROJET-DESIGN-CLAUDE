@@ -58,7 +58,7 @@ check_no_stale_reference() {
 }
 
 if [[ -z "$AGENT_NUM" ]]; then
-    echo "Usage: ./validate-deliverable.sh <1-6> [project-name]"
+    echo "Usage: ./validate-deliverable.sh <1-8> [project-name]"
     exit 1
 fi
 
@@ -100,6 +100,19 @@ case "$AGENT_NUM" in
         echo "Agent 6 (QA) — QA Report"
         check_file_not_empty "*/6. QA*/qa-report-v1-${PROJECT}.md" "QA Report"
         check_version_bumped "*/6. QA*/qa-report-v1-${PROJECT}.md" "1.0" "QA Report"
+        ;;
+    7)
+        echo "Agent 7 (Integration) — implementation plan + build report"
+        check_file_not_empty "*/7. Int*/implementation-plan-${PROJECT}.md" "Implementation plan"
+        check_file_not_empty "*/7. Int*/build-report-${PROJECT}.md" "Build report"
+        check_version_bumped "*/7. Int*/build-report-${PROJECT}.md" "1.0" "Build report"
+        ;;
+    8)
+        echo "Agent 8 (Deployment) — deployment plan + launch report + client handoff"
+        check_file_not_empty "*/8. Dep*/deployment-plan-${PROJECT}.md" "Deployment plan"
+        check_file_not_empty "*/8. Dep*/launch-report-${PROJECT}.md" "Launch report"
+        check_file_not_empty "*/8. Dep*/client-handoff-${PROJECT}.md" "Client handoff"
+        check_version_bumped "*/8. Dep*/launch-report-${PROJECT}.md" "1.0" "Launch report"
         ;;
 esac
 

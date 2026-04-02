@@ -16,6 +16,8 @@ AGENTS[3]="3. Contenu & copywriting|vitrine-copywriting|senior copywriter specia
 AGENTS[4]="4. Branding-UI & design system|vitrine-ui-design-system|senior art director / UI designer"
 AGENTS[5]="5. Technique & intégrations|vitrine-tech-stack|web architect for marketing sites"
 AGENTS[6]="6. QA & optimisation|vitrine-qa-optimisation|QA lead specializing in marketing sites"
+AGENTS[7]="7. Integration & developpement|vitrine-integration|senior full-stack developer specializing in showcase website implementation"
+AGENTS[8]="8. Deploiement & mise en production|vitrine-deployment|senior DevOps / launch engineer for showcase websites"
 
 # --- Default model per agent (rate limit optimization) ---
 declare -A DEFAULT_MODELS
@@ -25,6 +27,8 @@ DEFAULT_MODELS[3]="sonnet"
 DEFAULT_MODELS[4]=""  # inherit (uses session default = opus)
 DEFAULT_MODELS[5]=""  # inherit
 DEFAULT_MODELS[6]="sonnet"
+DEFAULT_MODELS[7]=""  # inherit (opus)
+DEFAULT_MODELS[8]=""  # inherit (opus)
 
 # --- Parse arguments ---
 AGENT_NUM="$1"
@@ -58,7 +62,7 @@ done
 PROMPT="$*"
 
 if [[ -z "$AGENT_NUM" || -z "$PROMPT" ]]; then
-    echo "Usage: ./run-agent.sh <1-6> [-m model] [-t max-turns] [-c cooldown] \"your prompt\""
+    echo "Usage: ./run-agent.sh <1-8> [-m model] [-t max-turns] [-c cooldown] \"your prompt\""
     echo ""
     echo "Options:"
     echo "  -m, --model      Model to use (sonnet, opus, haiku). Default: per-agent optimized"
@@ -70,7 +74,7 @@ fi
 IFS='|' read -r FOLDER NAME ROLE <<< "${AGENTS[$AGENT_NUM]}"
 
 if [[ -z "$FOLDER" ]]; then
-    echo "Agent $AGENT_NUM unknown. Use 1-6."
+    echo "Agent $AGENT_NUM unknown. Use 1-8."
     exit 1
 fi
 

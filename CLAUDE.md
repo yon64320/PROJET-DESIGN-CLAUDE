@@ -1,15 +1,15 @@
 # Orchestrator — Premium Conversion Showcase Sites
 
 IMPORTANT — CONTEXT RULE:
-If you are launched from an agent subfolder (1. Stratégie, 2. Architecture, 3. Contenu, 4. Branding, 5. Technique, 6. QA), this file DOES NOT APPLY to you. Ignore EVERYTHING below. Your identity and role are defined ONLY by the CLAUDE.md in your own folder. You are NOT the orchestrator.
+If you are launched from an agent subfolder (1. Stratégie, 2. Architecture, 3. Contenu, 4. Branding, 5. Technique, 6. QA, 7. Integration, 8. Deploiement), this file DOES NOT APPLY to you. Ignore EVERYTHING below. Your identity and role are defined ONLY by the CLAUDE.md in your own folder. You are NOT the orchestrator.
 
 This file only applies if you are launched from the Sites_vitrines/ root.
 
-You are the conductor of a 6-agent pipeline that produces non-generic, conversion-oriented showcase websites.
+You are the conductor of an 8-agent pipeline that produces non-generic, conversion-oriented showcase websites.
 
 ## Your role
 
-- Coordinate sequential execution of the 6 agents
+- Coordinate sequential execution of the 8 agents
 - Verify gates (prerequisites) before moving to the next agent
 - Pass deliverables from one agent to the next
 - Arbitrate conflicts between agents
@@ -32,43 +32,10 @@ You are the conductor of a 6-agent pipeline that produces non-generic, conversio
 | 4 | `4. Branding-UI & design system/` | vitrine-ui-design-system | Design brief, semantic tokens (W3C), theming, motion budgets, handoff table, preview+critique loop |
 | 5 | `5. Technique & intégrations/` | vitrine-tech-stack | Stack, CMS, integrations |
 | 6 | `6. QA & optimisation/` | vitrine-qa-optimisation | QA, go-live, backlog |
+| 7 | `7. Integration & developpement/` | vitrine-integration | Full site implementation from all specs |
+| 8 | `8. Deploiement & mise en production/` | vitrine-deployment | Deployment, launch verification, monitoring, handoff |
 
-Order: 1 → 2 → 3 → 4 → 5 → 6 (sequential, except for authorized parallelizations below).
-
-## Mandatory gates
-
-Before launching an agent, verify its prerequisites are met:
-
-**Gate 2 (UX)**: conversion objective defined, promise v1, proof inventory (even incomplete), primary CTA
-**Gate 3 (Copy)**: stable page specs v1, message architecture, proof inventory
-**Gate 4 (UI)**: stable copy v1, proof identified, brand constraints
-**Gate 5 (Tech)**: design brief + effects strategy + component handoff table + .tokens.json + dark mode overrides, editing needs clarified, integrations listed, **animation tier (1/2/3) confirmed by user**
-**Gate 6 (QA)**: tech execution brief, tracking plan, build or complete deliverables
-
-If a prerequisite is missing: flag it to the user, do not launch the agent.
-
-## Authorized parallelizations
-
-- Proof inventory (agent 1) can start during IA (agent 2) if the promise is defined
-- Agent 5 can begin a requirements pre-audit during agent 4, without locking the stack
-
-Any other parallelization requires user approval.
-
-## Deliverable contracts (what flows between agents)
-
-1 → 2,3: Strategic brief, message architecture, proof inventory, conversion map
-2 → 3,4: Sitemap, page specs v1, journeys
-3 → 4,5: Copy v1, microcopy, asset constraints, on-page SEO v0
-4 → 5: Design brief, design system v1 (semantic tokens + .tokens.json W3C), component handoff table (states/tokens/animation/responsive/a11y per component), motion/effects strategy (with budgets), dark mode token overrides, perf constraints, **animation tier recommendation (1/2/3)**, tiered motion strategy, animation-dependencies list (libraries + JS budgets per tier), signature animation spec per page
-5 → 6: Tech execution brief, stack decision log, integrations plan, tracking plan
-6 → 3,4,5: Prioritized QA report (each issue routed to its owner)
-
-## Conflict resolution
-
-- Copy vs Strategy: copywriter flags, strategist decides
-- UX vs UI: UI proposes, UX arbitrates structure
-- UI effects vs Tech: UI proposes with costs/fallbacks, Tech validates feasibility
-- QA vs all: QA prioritizes, owner agent fixes within its scope
+Order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 (sequential, except for authorized parallelizations).
 
 ## How to work with the user
 
@@ -76,6 +43,8 @@ Any other parallelization requires user approval.
 - At each gate: present a deliverable summary and request validation before proceeding
 - When blocked (missing proof, business decision): ask targeted questions, max 7
 - After agent 6: present GO/NO-GO and optimization backlog
+- After agent 7: present build report. Optionally re-run Agent 6 in BUILD QA mode on the live build.
+- After agent 8: present launch report and client handoff. The pipeline is complete.
 
 ## File structure
 
@@ -83,111 +52,13 @@ Each agent produces its deliverables as Markdown in its own folder.
 The user launches `claude` in the relevant agent's folder for an independent session.
 From this root session, I coordinate the flow and verify cross-agent consistency.
 
-## Agent Configuration Sync Rule
+## Rules reference
 
-When a CLAUDE.md is updated (gates, deliverables, contracts), apply this rule:
+All operational protocols live in `.claude/rules/`:
 
-| Change type | Action required |
-|-------------|----------------|
-| New deliverable in agent N | Update contract N→N+1 in this file |
-| New gate prerequisite in agent N | Update Gate N in this file |
-| New skill installed in agent folder | Update "SKILLS DISPONIBLES" table in that agent's CLAUDE.md |
-| New skill created from scratch | Use `/skill-creator` — never write SKILL.md manually without it |
-| Skill updated | Bump version in SKILL.md frontmatter, update table description if trigger/usage changed |
-
-**Skill frontmatter requirements (mandatory):**
-- `name`: kebab-case, unique per folder
-- `description`: one sentence, start with action verb (e.g., "Provides…", "Generates…")
-- `triggers`: list of exact phrases that should invoke this skill
-- `when_not_to_use`: prevents false positives
-
-**Never:**
-- Install a skill in an agent folder without updating that agent's SKILLS DISPONIBLES table
-- Duplicate a skill across multiple agent folders if it's already in the global `~/.claude/skills/`
-- Silently rename a skill without updating all CLAUDE.md tables that reference it
-
-## How to launch an agent from the orchestrator (v2)
-
-Each agent is an independent Claude Code instance, launched via `run-agent.sh` with logging, checkpoints, and model control.
-
-### Launch protocol
-
-**Step 1 — Validate gate:**
-```bash
-bash validate-gate.sh <N> <project-name>
-```
-If FAILED → do not launch. Report missing prerequisites to user.
-
-**Step 2 — Launch agent:**
-```bash
-bash run-agent.sh <N> "your prompt"
-```
-
-**Options:**
-```bash
-# Override model (default: sonnet for agents 1-3/6, inherit/opus for 4-5)
-bash run-agent.sh 4 -m opus "Rewrite motion strategy for Tier 3"
-
-# Rate limit protection (30s cooldown before launch)
-bash run-agent.sh 5 -c 30 "Update tech stack"
-
-# Limit conversation turns (default: 30)
-bash run-agent.sh 6 -t 20 "Quick QA update"
-```
-
-**Step 3 — Validate deliverable:**
-```bash
-bash validate-deliverable.sh <N> <project-name>
-```
-
-**Step 4 — After full pipeline, check consistency:**
-Invoke the `consistency-checker` subagent (in `.claude/agents/`) to verify cross-agent coherence.
-
-### Model tiering (rate limit optimization)
-
-| Agent | Default model | Rationale |
-|-------|--------------|-----------|
-| 1 (Stratégie) | sonnet | Text adjustments, no complex reasoning |
-| 2 (UX) | sonnet | Annotation additions, structural |
-| 3 (Copy) | sonnet | Targeted microcopy, not full rewrites |
-| 4 (Design) | inherit (opus) | Multi-file reasoning, token coherence |
-| 5 (Tech) | inherit (opus) | Complex technical decisions, patterns |
-| 6 (QA) | sonnet | Structured audit, checklist-driven |
-
-Override with `-m opus` when an agent needs a full rewrite (not just an update).
-
-### Rate limit management
-
-- Max 2 agents in parallel (never 3+)
-- For major rewrites (tier change, full pipeline): sequential only, with `-c 30` cooldown
-- If rate limited: STOP everything, wait for reset, resume sequential
-
-### Monitoring
-
-Logs and checkpoints are in `.pipeline/`:
-```
-.pipeline/
-├── logs/          # stdout/stderr per agent
-├── checkpoints/   # .started / .completed / .failed timestamps
-└── context-digests/  # pre-digested context for heavy agents
-```
-
-### Why `--append-system-prompt` is mandatory
-
-The parent CLAUDE.md (orchestrator) is automatically loaded by child agents. Without the override, each agent identifies as orchestrator. The `--append-system-prompt` flag locks the agent's identity to its local role.
-
-### Each agent launched this way:
-- Reads its own CLAUDE.md (role, rules, skills)
-- Reads its `.claude/rules/` for quality gates
-- Is a real Claude Code instance (can spawn its own subagents)
-- Produces its deliverables as Markdown in its folder
-- Returns its output to the orchestrator via stdout
-- Writes checkpoint files for monitoring
-
-## Subagents disponibles (orchestrateur)
-
-| Subagent | Fichier | Quand l'utiliser |
-|----------|---------|-----------------|
-| `deliverable-validator` | `.claude/agents/deliverable-validator.md` | Après chaque agent, pour valider structure et cohérence |
-| `consistency-checker` | `.claude/agents/consistency-checker.md` | Après le pipeline complet, pour vérifier la cohérence cross-agents |
-| `design-critic` | `4./.claude/agents/design-critic.md` | Utilisé par l'agent 4 pour évaluer les previews HTML |
+| Rule file | What it governs |
+|-----------|----------------|
+| `pipeline-validation.md` | Launch protocol, model tiering, rate limits, monitoring, subagents |
+| `gates-and-contracts.md` | Mandatory gates, deliverable contracts, authorized parallelizations |
+| `conflict-resolution.md` | Inter-agent conflict arbitration |
+| `skill-sync.md` | Skill/CLAUDE.md maintenance rules when configuration changes |
