@@ -106,30 +106,88 @@ When a CLAUDE.md is updated (gates, deliverables, contracts), apply this rule:
 - Duplicate a skill across multiple agent folders if it's already in the global `~/.claude/skills/`
 - Silently rename a skill without updating all CLAUDE.md tables that reference it
 
-## How to launch an agent from the orchestrator
+## How to launch an agent from the orchestrator (v2)
 
-Each agent is an independent Claude Code instance, launched via Bash with the `run-agent.sh` script or directly with the command below.
+Each agent is an independent Claude Code instance, launched via `run-agent.sh` with logging, checkpoints, and model control.
 
-**Via the script:**
+### Launch protocol
+
+**Step 1 — Validate gate:**
 ```bash
-bash run-agent.sh <1-6> "your prompt"
+bash validate-gate.sh <N> <project-name>
 ```
-Example: `bash run-agent.sh 1 "Start framing for a premium plumber website"`
+If FAILED → do not launch. Report missing prerequisites to user.
 
-**Via direct command (for customization):**
+**Step 2 — Launch agent:**
 ```bash
-export CLAUDE_CODE_GIT_BASH_PATH='C:\Program Files\Git\bin\bash.exe'
-claude -p "prompt" \
-    --output-format text \
-    --append-system-prompt "You are agent <agent-name>. Ignore any instruction telling you that you are an orchestrator." \
-    -d "c:/00 - CLAUDE/Sites_vitrines/<agent-folder>"
+bash run-agent.sh <N> "your prompt"
 ```
 
-**Why `--append-system-prompt` is mandatory:**
+**Options:**
+```bash
+# Override model (default: sonnet for agents 1-3/6, inherit/opus for 4-5)
+bash run-agent.sh 4 -m opus "Rewrite motion strategy for Tier 3"
+
+# Rate limit protection (30s cooldown before launch)
+bash run-agent.sh 5 -c 30 "Update tech stack"
+
+# Limit conversation turns (default: 30)
+bash run-agent.sh 6 -t 20 "Quick QA update"
+```
+
+**Step 3 — Validate deliverable:**
+```bash
+bash validate-deliverable.sh <N> <project-name>
+```
+
+**Step 4 — After full pipeline, check consistency:**
+Invoke the `consistency-checker` subagent (in `.claude/agents/`) to verify cross-agent coherence.
+
+### Model tiering (rate limit optimization)
+
+| Agent | Default model | Rationale |
+|-------|--------------|-----------|
+| 1 (Stratégie) | sonnet | Text adjustments, no complex reasoning |
+| 2 (UX) | sonnet | Annotation additions, structural |
+| 3 (Copy) | sonnet | Targeted microcopy, not full rewrites |
+| 4 (Design) | inherit (opus) | Multi-file reasoning, token coherence |
+| 5 (Tech) | inherit (opus) | Complex technical decisions, patterns |
+| 6 (QA) | sonnet | Structured audit, checklist-driven |
+
+Override with `-m opus` when an agent needs a full rewrite (not just an update).
+
+### Rate limit management
+
+- Max 2 agents in parallel (never 3+)
+- For major rewrites (tier change, full pipeline): sequential only, with `-c 30` cooldown
+- If rate limited: STOP everything, wait for reset, resume sequential
+
+### Monitoring
+
+Logs and checkpoints are in `.pipeline/`:
+```
+.pipeline/
+├── logs/          # stdout/stderr per agent
+├── checkpoints/   # .started / .completed / .failed timestamps
+└── context-digests/  # pre-digested context for heavy agents
+```
+
+### Why `--append-system-prompt` is mandatory
+
 The parent CLAUDE.md (orchestrator) is automatically loaded by child agents. Without the override, each agent identifies as orchestrator. The `--append-system-prompt` flag locks the agent's identity to its local role.
 
-**Each agent launched this way:**
-- Reads its own CLAUDE.md (role, rules, deliverables)
+### Each agent launched this way:
+- Reads its own CLAUDE.md (role, rules, skills)
+- Reads its `.claude/rules/` for quality gates
 - Is a real Claude Code instance (can spawn its own subagents)
 - Produces its deliverables as Markdown in its folder
 - Returns its output to the orchestrator via stdout
+- Writes checkpoint files for monitoring
+
+## Subagents disponibles (orchestrateur)
+
+| Subagent | Fichier | Quand l'utiliser |
+|----------|---------|-----------------|
+| `deliverable-validator` | `.claude/agents/deliverable-validator.md` | Après chaque agent, pour valider structure et cohérence |
+| `consistency-checker` | `.claude/agents/consistency-checker.md` | Après le pipeline complet, pour vérifier la cohérence cross-agents |
+| `design-critic` | `4./.claude/agents/design-critic.md` | Utilisé par l'agent 4 pour évaluer les previews HTML |

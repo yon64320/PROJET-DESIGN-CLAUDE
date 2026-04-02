@@ -1,0 +1,6 @@
+# Pipeline runtime artifacts (not tracked)
+logs/
+checkpoints/
+
+# Context digests ARE tracked (useful for reference)
+!context-digests/
