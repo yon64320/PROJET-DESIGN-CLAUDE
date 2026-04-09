@@ -1,0 +1,51 @@
+---
+interface Metric {
+  value: string;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+}
+
+interface Props {
+  heading?: string;
+  metrics: Metric[];
+  class?: string;
+  variant?: 'default' | 'brand';
+}
+
+const { heading, metrics, class: className = '', variant = 'default' } = Astro.props;
+const bgClass = variant === 'brand' ? '' : '';
+const bgStyle = variant === 'brand'
+  ? 'background-color: var(--color-surface-brand);'
+  : 'background-color: var(--color-surface-secondary);';
+const textColor = variant === 'brand' ? 'color: white;' : '';
+const labelColor = variant === 'brand' ? 'color: rgba(255,255,255,0.7);' : 'color: var(--color-text-secondary);';
+---
+
+<section class={`py-20 lg:py-24 ${className}`} style={bgStyle} aria-label={heading || 'Metrics'}>
+  <div class="container">
+    {heading && (
+      <h2 class="font-display font-bold text-center mb-14 animate" style={`font-size: clamp(1.625rem, 3.5vw, 2.25rem); ${textColor}`}>{heading}</h2>
+    )}
+    <div class={`grid grid-cols-2 lg:grid-cols-${metrics.length} gap-8 lg:gap-12`}>
+      {metrics.map((metric) => (
+        <div class="text-center animate group">
+          <div class="relative inline-block">
+            <span
+              class="font-mono font-bold block mb-3 counter transition-transform duration-300 group-hover:scale-105"
+              style={`font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--color-accent-action);`}
+              data-value={metric.value}
+              data-prefix={metric.prefix || ''}
+              data-suffix={metric.suffix || ''}
+            >
+              {metric.prefix}{metric.value}{metric.suffix}
+            </span>
+            <!-- Decorative underline -->
+            <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-12 h-0.5 rounded-full opacity-30" style="background-color: var(--color-accent-action);" aria-hidden="true"></div>
+          </div>
+          <span class="text-sm leading-relaxed block mt-2 max-w-[200px] mx-auto" style={labelColor}>{metric.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

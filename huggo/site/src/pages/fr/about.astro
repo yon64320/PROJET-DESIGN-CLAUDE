@@ -1,0 +1,96 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import HeroPage from '../../components/sections/HeroPage.astro';
+import MetricsSection from '../../components/sections/MetricsSection.astro';
+import PreFooterCTA from '../../components/global/PreFooterCTA.astro';
+import { getLocalePath } from '../../utils/i18n';
+
+const locale = 'fr';
+---
+
+<PageLayout title="À propos de HUGGO — Vision, partenaires, engagements" description="HUGGO, filiale d'Atidgo, transforme WhatsApp en canal de vente pour les commerçants. Vision, partenaires technologiques, engagements RSE. Demandez une démo." locale={locale} alternateUrl="/en/about">
+  <HeroPage locale={locale} h1="HUGGO, l'assistant IA qui rapproche les commerçants de leurs clients." subtitle="Né de la conviction que WhatsApp est le canal naturel du commerce de proximité. Construit pour les commerçants qui veulent reprendre le contrôle de leur relation client — sans complexité, sans commission." ctaPrimary="Demander une démo" />
+
+  <!-- S2: Vision -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label="Vision">
+    <div class="container max-w-3xl">
+      <h2 class="font-display font-bold text-center mb-10 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Pourquoi HUGGO existe.</h2>
+      <div class="space-y-6 text-lg leading-relaxed animate" style="color: var(--color-text-secondary);">
+        <p>Le commerce de proximité nourrit les quartiers, anime les villages, crée du lien. Mais chaque année, des commerçants perdent du terrain face à des plateformes qui captent leurs clients et prélèvent leurs marges.</p>
+        <p>HUGGO est né d'un constat : WhatsApp est déjà installé sur 95% des smartphones français. Vos clients l'utilisent 50 fois par jour. Le canal existe — il suffit de le transformer en canal de vente.</p>
+        <p>C'est ce que fait HUGGO : un assistant IA personnalisé pour chaque commerçant, capable de prendre des commandes, recommander des produits, et fidéliser les clients. Directement dans une conversation WhatsApp. Sans app à télécharger, sans compte à créer, sans commission à reverser.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- S3: Filiale d'Atidgo -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label="Atidgo">
+    <div class="container max-w-3xl">
+      <h2 class="font-display font-bold text-center mb-10 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Construit sur des bases solides.</h2>
+      <div class="space-y-6 text-lg leading-relaxed animate" style="color: var(--color-text-secondary);">
+        <p>HUGGO est une filiale d'Atidgo, spécialiste des technologies conversationnelles et de l'intelligence artificielle appliquée au commerce. Cette filiation apporte à HUGGO une infrastructure technique éprouvée, un réseau de partenaires technologiques et un historique de 50 millions d'euros de données transactionnelles qualifiées.</p>
+        <p>HUGGO est l'entité entièrement dédiée au commerce de proximité : la technologie d'Atidgo, concentrée sur les besoins des commerçants et de leurs clients.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4: Partenaires technologiques -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label="Partenaires">
+    <div class="container max-w-4xl">
+      <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Nos partenaires technologiques.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[
+          { name: 'Google Cloud Platform', desc: 'Infrastructure cloud et intelligence artificielle. HUGGO est construit sur GCP pour la scalabilité, la fiabilité et les capacités IA.' },
+          { name: 'Centrale Paris / France', desc: 'Partenariat académique pour le développement du modèle prédictif (croisement météo / événements locaux).' },
+          { name: 'ACSEO', desc: 'Intégrateur technique. Partenaire de développement depuis la conception de la plateforme.' },
+          { name: 'Orisha Distribution', desc: 'Synchronisation ERP (produits, stocks, commandes). L\'interface avec les systèmes de caisse existants.' },
+          { name: 'Contodeo', desc: 'Paiement intégré. Multi-méthodes dans la conversation WhatsApp.' },
+        ].map((partner) => (
+          <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-6 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+            <h3 class="font-display font-semibold mb-2" style="color: var(--color-brand-primary);">{partner.name}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--color-text-secondary);">{partner.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S5: Chiffres -->
+  <MetricsSection heading="HUGGO en chiffres." metrics={[
+    { value: '15', suffix: 'M', label: 'de commandes traitées depuis mars 2025' },
+    { value: '50', suffix: 'M€', label: 'd\'historique transactionnel qualifié (data IA)' },
+    { value: '3', label: 'distributeurs CHR déployant HUGGO à l\'échelle nationale' },
+    { value: '50', prefix: '~', label: 'intégrations disponibles via HubRise' },
+  ]} />
+
+  <!-- S6: Engagements RSE -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label="Engagements RSE">
+    <div class="container max-w-4xl">
+      <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Six engagements concrets.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[
+          { title: 'Anti-gaspi', desc: 'Les pré-commandes permettent au commerçant de produire au plus juste. Moins de surplus, moins de pertes, moins de gaspillage.' },
+          { title: 'Inclusion digitale', desc: 'HUGGO fonctionne sur WhatsApp — l\'app la plus répandue en France. Accessible aux personnes âgées, aux non-technophiles, aux touristes.' },
+          { title: 'Commerce local', desc: 'Chaque commande via HUGGO va directement au commerçant. Pas de plateforme intermédiaire, pas de commission. Le chiffre d\'affaires reste local.' },
+          { title: 'Circuit court', desc: 'Via HUGGO Collectivity, les producteurs locaux vendent en direct à leurs consommateurs. Du champ à l\'assiette, sans détour.' },
+          { title: 'Qualité de vie', desc: 'Moins de files d\'attente pour le client. Moins de stress opérationnel pour le commerçant. Les pré-commandes lissent l\'activité.' },
+          { title: 'Accessibilité', desc: 'Commander depuis chez soi, sans se déplacer, sans contrainte horaire. Pour les personnes à mobilité réduite, les aidants, les familles éloignées.' },
+        ].map((item) => (
+          <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-6 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+            <h3 class="font-display font-semibold mb-2" style="color: var(--color-brand-primary);">{item.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--color-text-secondary);">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <PreFooterCTA locale={locale} heading="Rejoignez les commerçants qui transforment leur relation client." primaryCta="Demander une démo" secondaryCta="Nous contacter" />
+</PageLayout>
+
+<script>
+  import { initGSAP, createFadeUp, createCounter } from '../../utils/gsap-init';
+  import { initLenis } from '../../utils/lenis-init';
+  async function init() { const result = await initGSAP(); if (!result) return; const { gsap, ScrollTrigger } = result; const counters = document.querySelectorAll('.counter'); if (counters.length > 0) createCounter(gsap, ScrollTrigger, counters); document.querySelectorAll('.animate').forEach((el) => createFadeUp(gsap, ScrollTrigger, el)); await initLenis(); }
+  init();
+</script>

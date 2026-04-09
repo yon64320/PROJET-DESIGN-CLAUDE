@@ -1,0 +1,92 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import HeroPage from '../../components/sections/HeroPage.astro';
+import PricingTiers from '../../components/sections/PricingTiers.astro';
+import MetricsSection from '../../components/sections/MetricsSection.astro';
+import FaqSection from '../../components/sections/FaqSection.astro';
+import PreFooterCTA from '../../components/global/PreFooterCTA.astro';
+import { getLocalePath } from '../../utils/i18n';
+
+const locale = 'fr';
+---
+
+<PageLayout title="Tarifs HUGGO — Paliers fonctionnalités | 0% commission" description="Découvrez les paliers HUGGO : Essentiel, Smart, Marketing, Analytics. Zéro commission sur vos ventes. Demandez un devis personnalisé sous 24h." locale={locale} alternateUrl="/en/pricing">
+  <HeroPage locale={locale} h1="Un palier adapté à chaque commerce." subtitle="Tarification adaptée à votre activité et votre volume. Zéro commission sur vos ventes, quel que soit le palier choisi." ctaPrimary="Demander un devis" microText="Devis personnalisé sous 24h" />
+
+  <!-- S2: Paliers -->
+  <PricingTiers locale={locale} heading="Quatre paliers, une même promesse : zéro commission." tiers={[
+    { name: 'Essentiel', description: 'L\'indispensable pour vendre sur WhatsApp.', features: ['Commande conversationnelle par WhatsApp', 'Panier et paiement intégré (Contodeo)', 'QR code Click & Collect', 'Suivi de commande en temps réel', 'Historique des commandes', 'Fiches clients automatiques'], ctaLabel: 'Demander un devis' },
+    { name: 'Smart', description: 'L\'intelligence qui fait la différence.', isPopular: true, features: ['Tout le palier Essentiel, plus :', 'Recommandations produits (vente additionnelle et croisée)', 'Mémoire client : « Comme d\'habitude ? » en un message', 'Push promotions (déstockage, nouveautés)', 'Relance automatique des paniers abandonnés'], ctaLabel: 'Demander un devis' },
+    { name: 'Marketing', description: 'Anticipez la demande. Ciblez vos clients.', features: ['Tout le palier Smart, plus :', 'Bannières publicitaires générées par IA', 'Modèle prédictif : croisement météo et événements locaux', 'Ciblage client par comportement d\'achat', 'Demande automatique d\'avis Google'], ctaLabel: 'Demander un devis' },
+    { name: 'Analytics', description: 'Les données pour piloter.', features: ['Chiffre d\'affaires détaillé par canal HUGGO', 'Panier moyen et taux de conversion', 'Heures de commande (optimisation planning)', 'Performance des campagnes promotionnelles', 'Recommandations de mise en avant produits'], ctaLabel: 'Demander un devis', isAddon: true },
+  ]} />
+
+  <!-- S3: Ce qui est inclus partout -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label="Inclus partout">
+    <div class="container max-w-3xl">
+      <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Quel que soit votre palier, ces fondamentaux sont inclus.</h2>
+      <div class="space-y-4">
+        {[
+          { label: 'Zéro commission', desc: 'sur toutes vos ventes — abonnement mensuel fixe' },
+          { label: 'Synchronisation caisse', desc: 'HUGGO se connecte à votre système de caisse existant' },
+          { label: 'Paiement multi-méthodes', desc: 'Apple Pay, Google Pay, Stripe, Contodeo' },
+          { label: 'Mises à jour incluses', desc: 'votre assistant évolue sans surcoût' },
+        ].map((item) => (
+          <div class="flex items-start gap-4 bg-[var(--color-surface-elevated)] border rounded-xl p-5 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" style="color: var(--color-feedback-success);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+            <p class="text-[0.9375rem]"><strong class="font-semibold" style="color: var(--color-text-primary);">{item.label}</strong> <span style="color: var(--color-text-secondary);">— {item.desc}</span></p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S4: ROI -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label="ROI">
+    <div class="container max-w-3xl">
+      <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Le retour sur investissement se voit dès le premier mois.</h2>
+      <div class="space-y-6">
+        {[
+          { heading: '+15 à +30% de panier moyen.', body: 'Vos clients commandent plus quand la friction disparaît. Recommandations produits, mémoire client, relance panier : HUGGO augmente le ticket moyen naturellement.' },
+          { heading: '0% de commission vs 20-30% sur les plateformes.', body: 'Sur un chiffre d\'affaires de 5 000 € mensuels via une plateforme de livraison, vous reversez 1 000 à 1 500 € de commissions. Avec HUGGO : zéro.' },
+          { heading: 'Opérationnel le jour même.', body: 'Pas de semaines de paramétrage, pas de développeur à payer. Votre assistant WhatsApp est en ligne en quelques minutes.' },
+        ].map((item) => (
+          <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-8 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+            <h3 class="font-display font-semibold text-lg mb-3" style="color: var(--color-text-primary);">{item.heading}</h3>
+            <p class="text-[0.9375rem] leading-relaxed" style="color: var(--color-text-secondary);">{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S5: Offre réseau -->
+  <section class="py-16 lg:py-20" style="background-color: var(--color-surface-secondary);" aria-label="Offre réseau">
+    <div class="container max-w-2xl text-center">
+      <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-8 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-brand-primary);">
+        <h3 class="font-display font-semibold text-xl mb-3" style="color: var(--color-text-primary);">Vous gérez un réseau de 50+ points de vente ?</h3>
+        <p class="text-[0.9375rem] leading-relaxed mb-6" style="color: var(--color-text-secondary);">Tarification dédiée, dégressive selon le volume. Un interlocuteur commercial dédié pour construire votre proposition sur mesure.</p>
+        <a href={getLocalePath(locale, 'contact')} class="inline-flex items-center gap-2 px-6 h-[46px] rounded-[20px] font-semibold text-[0.9375rem] active:scale-[0.97] transition-all duration-150 group border-2" style="border-color: var(--color-brand-primary); color: var(--color-brand-primary);">
+          Nous contacter
+          <svg class="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <FaqSection items={[
+    { question: 'Pourquoi les prix ne sont-ils pas affichés ?', answer: 'Parce que la tarification est adaptée à votre activité, votre volume et votre verticale (retail, franchise, collectivité). Nous préférons vous proposer un devis juste plutôt qu\'un prix générique. Réponse sous 24h.' },
+    { question: 'Y a-t-il des commissions sur les ventes ?', answer: 'Non. Aucune commission, aucun pourcentage prélevé sur vos ventes. L\'abonnement est mensuel et fixe.' },
+    { question: 'Puis-je changer de palier ?', answer: 'Oui. Vous pouvez évoluer vers un palier supérieur à tout moment, sans interruption de service.' },
+    { question: 'Quel est le coût pour un réseau ?', answer: 'La tarification réseau est dégressive selon le nombre de points de vente. Contactez notre équipe commerciale pour un devis adapté.' },
+  ]} />
+
+  <PreFooterCTA locale={locale} heading="Obtenez votre devis en 24h." subtext="Dites-nous quel est votre commerce — nous vous envoyons un devis adapté, sans engagement." primaryCta="Demander un devis" secondaryCta="Demander une démo" />
+</PageLayout>
+
+<script>
+  import { initGSAP, createFadeUp, createCounter, createStaggeredFadeUp } from '../../utils/gsap-init';
+  import { initLenis } from '../../utils/lenis-init';
+  async function init() { const result = await initGSAP(); if (!result) return; const { gsap, ScrollTrigger } = result; createStaggeredFadeUp(gsap, ScrollTrigger, '#pricing-grid', 'div[class*="card-lift"]'); document.querySelectorAll('.animate').forEach((el) => createFadeUp(gsap, ScrollTrigger, el)); await initLenis(); }
+  init();
+</script>

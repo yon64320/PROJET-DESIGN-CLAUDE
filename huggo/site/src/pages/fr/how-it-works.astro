@@ -1,0 +1,101 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import HeroPage from '../../components/sections/HeroPage.astro';
+import StepsSection from '../../components/sections/StepsSection.astro';
+import MetricsSection from '../../components/sections/MetricsSection.astro';
+import FaqSection from '../../components/sections/FaqSection.astro';
+import PreFooterCTA from '../../components/global/PreFooterCTA.astro';
+import { getLocalePath } from '../../utils/i18n';
+
+const locale = 'fr';
+---
+
+<PageLayout title="Comment ça marche — HUGGO | Onboarding en 4 étapes" description="Découvrez comment HUGGO fonctionne en 4 étapes simples. De la photo de votre carte à votre assistant WhatsApp opérationnel, en quelques minutes." locale={locale} alternateUrl="/en/how-it-works">
+  <HeroPage locale={locale} h1="De zéro à opérationnel en quelques minutes." subtitle="Pas d'app à installer. Pas de développeur à embaucher. Quatre étapes, et votre assistant WhatsApp prend ses premières commandes." ctaPrimary="Demander une démo" microText="15 minutes pour tout comprendre" />
+
+  <!-- S2: 4 étapes onboarding (détaillé) -->
+  <StepsSection heading="Quatre étapes. C'est tout." detailed={true} steps={[
+    { number: 1, heading: 'Trouvez votre commerce.', body: 'HUGGO localise votre établissement sur Google Business. Votre adresse, vos horaires, vos photos : tout est récupéré automatiquement.' },
+    { number: 2, heading: 'Importez vos produits.', body: 'Deux options : prenez votre carte en photo — l\'IA lit et crée votre catalogue. Ou synchronisez directement depuis votre caisse pour un catalogue toujours à jour.' },
+    { number: 3, heading: 'Votre assistant est créé.', body: 'L\'IA configure un assistant WhatsApp personnalisé pour votre commerce. Il connaît vos produits, vos prix, vos horaires. Il est prêt à répondre à vos clients.' },
+    { number: 4, heading: 'Vos clients commandent.', body: 'Votre numéro WhatsApp est publié sur Google Business. Vos clients vous trouvent, scannent votre QR code, et commandent directement. Le bouche-à-oreille fait le reste.' },
+  ]} />
+
+  <!-- S3: Démo conversation -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label="Démo conversation">
+    <div class="container max-w-2xl">
+      <h2 class="font-display font-bold text-center mb-10 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Voilà ce que vivent vos clients.</h2>
+      <div class="bg-[var(--color-surface-elevated)] border rounded-2xl p-6 shadow-[var(--shadow-md)] animate" style="border-color: var(--color-border-default);">
+        <div class="space-y-4">
+          {[
+            { from: 'client', text: 'Bonjour, je voudrais commander pour midi.' },
+            { from: 'huggo', text: 'Bonjour Marie ! Votre commande habituelle ? Un pain de campagne et 2 croissants ?' },
+            { from: 'client', text: 'Oui, et ajoutez une tarte aux pommes.' },
+            { from: 'huggo', text: 'Parfait. Total : 12,80 €. Récupération à 12h15. Payer maintenant ou en boutique ?' },
+            { from: 'client', text: 'Je paie maintenant.' },
+            { from: 'huggo', text: 'Paiement reçu. Votre commande sera prête à 12h15. À tout à l\'heure !' },
+          ].map((msg) => (
+            <div class={`flex ${msg.from === 'client' ? 'justify-end' : 'justify-start'}`}>
+              <div class={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${msg.from === 'client' ? 'rounded-br-md' : 'rounded-bl-md'}`} style={msg.from === 'client' ? 'background-color: #DCF8C6; color: #1A1D1E;' : 'background-color: var(--color-surface-secondary); color: var(--color-text-primary);'}>
+                <p class="font-semibold text-xs mb-1 opacity-60">{msg.from === 'client' ? 'Client' : 'Assistant HUGGO'}</p>
+                {msg.text}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4: Panier 360° -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label="Panier 360">
+    <div class="container max-w-4xl text-center">
+      <h2 class="font-display font-bold mb-6 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Un panier. Tous les canaux.</h2>
+      <p class="text-lg leading-relaxed mb-10 animate max-w-2xl mx-auto" style="color: var(--color-text-secondary);">Votre client ajoute un produit sur WhatsApp. En boutique, il modifie sa commande sur la borne ou l'iPad. Il paie en caisse. Le panier est le même, partout, en temps réel.</p>
+      <div class="flex flex-wrap justify-center gap-3 mb-10 animate">
+        {['WhatsApp', 'Borne en magasin', 'iPad', 'Caisse', 'Site web', 'Paiement'].map((channel) => (
+          <span class="px-5 py-2.5 rounded-xl text-sm font-semibold shadow-sm" style="background-color: var(--color-accent-subtle); color: var(--color-accent-action);">{channel}</span>
+        ))}
+      </div>
+      <p class="text-sm italic animate max-w-xl mx-auto" style="color: var(--color-text-secondary);">HUGGO se branche sur votre caisse existante. Pas de changement de matériel, pas de migration. Compatible avec les principaux systèmes de caisse du marché via HubRise et Orisha Distribution.</p>
+    </div>
+  </section>
+
+  <!-- S5: Vidéo démo -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label="Vidéo démo">
+    <div class="container max-w-3xl text-center">
+      <h2 class="font-display font-bold mb-8 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Voyez HUGGO en action.</h2>
+      <div class="aspect-video bg-[var(--color-surface-elevated)] border rounded-2xl flex items-center justify-center shadow-[var(--shadow-md)] animate" style="border-color: var(--color-border-default);">
+        <div class="text-center p-8">
+          <svg class="w-16 h-16 mx-auto mb-4 opacity-20" style="color: var(--color-text-secondary);" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <p class="text-sm" style="color: var(--color-text-secondary);">[Vidéo démo — à fournir]</p>
+        </div>
+      </div>
+      <a href={getLocalePath(locale, 'contact')} class="inline-flex items-center gap-2 mt-6 font-semibold transition-all duration-150 group" style="color: var(--color-brand-primary);">
+        Demander une démo personnalisée →
+        <svg class="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+      </a>
+    </div>
+  </section>
+
+  <MetricsSection heading="Ce que HUGGO change concrètement." metrics={[
+    { value: '60', suffix: '%', label: 'de clientèle digitalisée en 3 mois — même les non-technophiles' },
+    { value: '15', prefix: '+', suffix: ' à +30%', label: 'de panier moyen par rapport à une app mobile' },
+    { value: '15', suffix: 'M', label: 'de commandes traitées depuis mars 2025' },
+  ]} />
+
+  <FaqSection items={[
+    { question: 'Il faut un développeur pour installer ça ?', answer: 'Non. Quatre étapes, aucune compétence technique. Photo de votre carte, synchronisation de votre caisse, et votre assistant est en ligne. Aucun développeur nécessaire.' },
+    { question: 'Et si ma caisse n\'est pas compatible ?', answer: 'HUGGO se connecte aux principaux systèmes de caisse du marché via HubRise et Orisha Distribution. Si votre caisse est référencée sur HubRise, la connexion est automatique.' },
+    { question: 'Comment mes clients savent qu\'ils peuvent commander sur WhatsApp ?', answer: 'HUGGO publie automatiquement votre numéro sur Google Business. Un QR code à afficher en magasin est généré. Vos clients habitués le découvrent dès la première commande et en parlent autour d\'eux.' },
+  ]} />
+
+  <PreFooterCTA locale={locale} heading="Convaincu ? Passez à l'action." subtext="Demandez votre démo — 15 minutes pour voir HUGGO en action sur votre commerce." primaryCta="Demander une démo" secondaryCta="Voir les tarifs →" secondaryHref={getLocalePath(locale, 'pricing')} />
+</PageLayout>
+
+<script>
+  import { initGSAP, createFadeUp, createCounter } from '../../utils/gsap-init';
+  import { initLenis } from '../../utils/lenis-init';
+  async function init() { const result = await initGSAP(); if (!result) return; const { gsap, ScrollTrigger } = result; const counters = document.querySelectorAll('.counter'); if (counters.length > 0) createCounter(gsap, ScrollTrigger, counters); document.querySelectorAll('.animate').forEach((el) => createFadeUp(gsap, ScrollTrigger, el)); await initLenis(); }
+  init();
+</script>

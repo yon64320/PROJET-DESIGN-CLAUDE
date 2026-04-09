@@ -1,0 +1,69 @@
+---
+interface VerticalCard {
+  heading: string;
+  body: string;
+  cta: string;
+  href: string;
+}
+
+interface Props {
+  locale: 'fr' | 'en';
+  heading: string;
+  cards: VerticalCard[];
+}
+
+const { locale, heading, cards } = Astro.props;
+
+// Icons for each vertical
+const verticalIcons = [
+  // Retail - store
+  '<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />',
+  // Franchise - building
+  '<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />',
+  // Collectivity - globe
+  '<path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />',
+];
+
+const verticalLabels = locale === 'fr'
+  ? ['Retail', 'Franchise', 'Collectivity']
+  : ['Retail', 'Franchise', 'Collectivity'];
+---
+
+<section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label={heading}>
+  <div class="container">
+    <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">{heading}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8" id="verticals-grid">
+      {cards.map((card, i) => (
+        <a
+          href={card.href}
+          class="group relative bg-[var(--color-surface-elevated)] border rounded-xl p-8 shadow-[var(--shadow-sm)] card-lift animate flex flex-col no-underline"
+          style="border-color: var(--color-border-default);"
+          data-analytics="vertical_click"
+        >
+          <!-- Overline label -->
+          <span class="text-xs font-semibold uppercase tracking-wider mb-4 inline-block" style="color: var(--color-accent-action);">{verticalLabels[i]}</span>
+
+          <!-- Icon -->
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-200 group-hover:scale-110 group-hover:shadow-md" style="background-color: var(--color-brand-primary);">
+            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <Fragment set:html={verticalIcons[i]} />
+            </svg>
+          </div>
+
+          <h3 class="font-display font-semibold text-xl mb-3" style="color: var(--color-text-primary);">{card.heading}</h3>
+          <p class="text-[0.9375rem] leading-relaxed mb-6 flex-1" style="color: var(--color-text-secondary);">{card.body}</p>
+
+          <span class="inline-flex items-center gap-2 font-semibold text-[0.9375rem] transition-all duration-150 group-hover:gap-3" style="color: var(--color-brand-primary);">
+            {card.cta}
+            <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </span>
+
+          <!-- Hover accent line at bottom -->
+          <div class="absolute bottom-0 left-0 right-0 h-1 rounded-b-xl transition-all duration-200 opacity-0 group-hover:opacity-100" style="background-color: var(--color-brand-primary);" aria-hidden="true"></div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

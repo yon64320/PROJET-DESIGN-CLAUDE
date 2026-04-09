@@ -1,0 +1,52 @@
+---
+interface Props {
+  label?: string;
+}
+
+const { label } = Astro.props;
+
+// Logo files from public/logos/
+const logoFiles = [
+  '3s-pos.png', 'adipos.png', 'apicbase.png', 'app4.png', 'apple-pay.svg',
+  'biteberry.png', 'carre-pos.png', 'clyo-systems.png', 'como.png', 'contodeo.png',
+  'coursicab.png', 'deliveroo.png', 'delivery-hero.png', 'eatself.png', 'expedy.png',
+  'gonnaorder.png', 'google-pay.svg', 'hop-delivery.png', 'ikentoo.png',
+  'just-eat-flyt.png', 'just-eat-takeaway.png', 'kezia-ii.png', 'koust.png',
+  'kurve-kiosks.png', 'leo2.png', 'lightspeed.png', 'livepepper.png', 'mailchimp.png',
+  'myorderbox.png', 'nestor.png', 'netfood.png', 'orderlord.png', 'orderwire.png',
+  'orkestro.png', 'pixelpoint.png', 'pointone.png', 'sato.png', 'stripe.svg',
+  'stuart.png', 'tickncook.png', 'uber-direct.png', 'uber-eats.png', 'zelty.png',
+];
+---
+
+<section class="py-12 lg:py-16 overflow-hidden" style="background-color: var(--color-surface-primary);" aria-label={label || 'Partners'}>
+  {label && (
+    <p class="text-center mb-8 font-semibold text-sm uppercase tracking-wider" style="color: var(--color-text-secondary);">{label}</p>
+  )}
+
+  <!-- Fade edges -->
+  <div class="relative">
+    <div class="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style="background: linear-gradient(to right, var(--color-surface-primary), transparent);" aria-hidden="true"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style="background: linear-gradient(to left, var(--color-surface-primary), transparent);" aria-hidden="true"></div>
+
+    <div class="logo-bar-track" aria-hidden="true">
+      {/* Triple the logos for seamless infinite scroll */}
+      {[0, 1, 2].map(() => (
+        <>
+          {logoFiles.map((file) => (
+            <div class="flex-shrink-0 flex items-center justify-center w-[120px] h-[48px] px-3">
+              <img
+                src={`/logos/${file}`}
+                alt=""
+                class="max-h-[36px] w-auto grayscale opacity-40 hover:grayscale-0 hover:opacity-80 transition-all duration-300"
+                loading="lazy"
+                width="120"
+                height="36"
+              />
+            </div>
+          ))}
+        </>
+      ))}
+    </div>
+  </div>
+</section>

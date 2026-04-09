@@ -1,0 +1,24 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import HeroPage from '../../components/sections/HeroPage.astro';
+import PreFooterCTA from '../../components/global/PreFooterCTA.astro';
+import { getLocalePath } from '../../utils/i18n';
+const locale = 'en';
+---
+<PageLayout title="Contact — Request a HUGGO Demo " description=" Within 24h" locale={locale} alternateUrl="/fr/contact">
+  <HeroPage locale={locale} h1="Request a personalized HUGGO demo in 30 seconds. Our team calls you back within 24h." subtitle="Request your demo in 30 seconds." ctaPrimary="Our team calls you back within 24h for a personalized 15-minute demo. You'll see HUGGO in action for your store." microText="Request a demo" />
+  
+  <section class="section bg-surface-primary">
+    <div class="container max-w-4xl text-center">
+      <p class="text-body-lg text-text-secondary animate">Full content for this page is integrated in the final build. All sections are defined in copy v1 and the implementation plan.</p>
+    </div>
+  </section>
+
+  <PreFooterCTA locale={locale} heading="Ready to take the next step?" subtext="Request your demo — 15 minutes is all it takes." primaryCta="Request a demo" secondaryCta="Contact us" />
+</PageLayout>
+<script>
+import { initGSAP, createFadeUp } from '../../utils/gsap-init';
+import { initLenis } from '../../utils/lenis-init';
+async function init() { const r = await initGSAP(); if (!r) return; const { gsap, ScrollTrigger } = r; document.querySelectorAll('.animate').forEach((el) => createFadeUp(gsap, ScrollTrigger, el)); await initLenis(); }
+init();
+</script>

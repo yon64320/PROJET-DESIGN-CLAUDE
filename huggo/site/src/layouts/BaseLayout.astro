@@ -1,0 +1,90 @@
+---
+import '../styles/global.css';
+import '../styles/dark-mode.css';
+import '../styles/animations.css';
+import { DARK_MODE_SCRIPT } from '../utils/dark-mode';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: 'fr' | 'en';
+  alternateUrl?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  schemaOrg?: object;
+}
+
+const {
+  title,
+  description,
+  locale,
+  alternateUrl,
+  ogImage = '/images/og-default.png',
+  canonicalUrl,
+  schemaOrg,
+} = Astro.props;
+
+const siteUrl = import.meta.env.SITE_URL || 'https://huggo.ai';
+const plausibleDomain = import.meta.env.PLAUSIBLE_DOMAIN || '';
+const alternateLocale = locale === 'fr' ? 'en' : 'fr';
+const ogLocale = locale === 'fr' ? 'fr_FR' : 'en_US';
+---
+
+<!DOCTYPE html>
+<html lang={locale} data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Dark mode inline script (prevents FOUC) -->
+    <script set:html={DARK_MODE_SCRIPT} is:inline></script>
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <link rel="alternate" hreflang={locale} href={`${siteUrl}${Astro.url.pathname}`} />
+    {alternateUrl && <link rel="alternate" hreflang={alternateLocale} href={`${siteUrl}${alternateUrl}`} />}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    <meta property="og:url" content={`${siteUrl}${Astro.url.pathname}`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={ogLocale} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Font preload (critical path) -->
+    <link rel="preload" href="/fonts/PlusJakartaSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/DMSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Schema.org -->
+    {schemaOrg && (
+      <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+    )}
+
+    <!-- Plausible Analytics (< 1KB, no cookies) -->
+    {plausibleDomain && (
+      <script defer data-domain={plausibleDomain} src="https://plausible.io/js/script.js" is:inline></script>
+    )}
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <slot />
+
+    <!-- No-JS fallback for animations -->
+    <noscript>
+      <style>
+        .animate { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
+  </body>
+</html>

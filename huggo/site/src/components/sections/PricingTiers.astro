@@ -1,0 +1,76 @@
+---
+import Badge from '../ui/Badge.astro';
+import { getLocalePath } from '../../utils/i18n';
+
+interface Tier {
+  name: string;
+  description: string;
+  features: string[];
+  ctaLabel: string;
+  isAddon?: boolean;
+  isPopular?: boolean;
+}
+
+interface Props {
+  locale: 'fr' | 'en';
+  heading: string;
+  tiers: Tier[];
+}
+
+const { locale, heading, tiers } = Astro.props;
+const contactHref = getLocalePath(locale, 'contact');
+const popularLabel = locale === 'fr' ? 'Populaire' : 'Popular';
+---
+
+<section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label={heading}>
+  <div class="container">
+    <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">{heading}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="pricing-grid">
+      {tiers.map((tier, i) => {
+        const isSmartTier = tier.name === 'Smart';
+        return (
+          <div class={`relative bg-[var(--color-surface-elevated)] border rounded-xl p-7 shadow-[var(--shadow-sm)] card-lift animate flex flex-col ${isSmartTier ? 'lg:scale-105 lg:shadow-lg ring-2 z-10' : ''}`} style={`border-color: ${isSmartTier ? 'var(--color-accent-action)' : 'var(--color-border-default)'};`}>
+            {/* Popular badge for Smart tier */}
+            {isSmartTier && (
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                <Badge class="shadow-sm">{popularLabel}</Badge>
+              </div>
+            )}
+
+            <div class="mb-5">
+              <h3 class="font-display font-bold text-xl mb-1" style="color: var(--color-text-primary);">
+                {tier.name}
+                {tier.isAddon && <span class="text-sm font-normal ml-1" style="color: var(--color-text-secondary);">(add-on)</span>}
+              </h3>
+              <p class="text-sm leading-relaxed" style="color: var(--color-text-secondary);">{tier.description}</p>
+            </div>
+
+            <ul class="space-y-3 mb-8 flex-1">
+              {tier.features.map((feature) => (
+                <li class="flex items-start gap-2.5 text-[0.9375rem]">
+                  <svg class="w-5 h-5 flex-shrink-0 mt-0.5" style="color: var(--color-feedback-success);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span style="color: var(--color-text-primary);">{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={contactHref}
+              class={`inline-flex items-center justify-center gap-2 w-full h-[46px] font-semibold text-[0.9375rem] rounded-[20px] active:scale-[0.97] transition-all duration-150 group ${isSmartTier ? 'text-white hover:shadow-[0_4px_20px_rgba(245,146,10,0.35)]' : 'border-2 hover:bg-[var(--color-brand-primary)]/[0.08]'}`}
+              style={isSmartTier
+                ? 'background-color: var(--color-accent-action);'
+                : 'border-color: var(--color-brand-primary); color: var(--color-brand-primary);'}
+            >
+              {tier.ctaLabel}
+              <svg class="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

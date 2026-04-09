@@ -1,0 +1,155 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import HeroPage from '../../components/sections/HeroPage.astro';
+import MetricsSection from '../../components/sections/MetricsSection.astro';
+import PricingTiers from '../../components/sections/PricingTiers.astro';
+import FaqSection from '../../components/sections/FaqSection.astro';
+import PreFooterCTA from '../../components/global/PreFooterCTA.astro';
+import { getLocalePath } from '../../utils/i18n';
+
+const locale = 'fr';
+---
+
+<PageLayout
+  title="HUGGO Retail — Assistant WhatsApp commerçants | 0% commission"
+  description="HUGGO transforme WhatsApp en canal de vente pour votre commerce. Panier synchronisé, 0% commission, opérationnel en quelques minutes. Demandez une démo."
+  locale={locale}
+  alternateUrl="/en/retail"
+>
+  <HeroPage
+    locale={locale}
+    h1="Votre assistant IA sur WhatsApp. Commandes, paiements, fidélisation — sans commission."
+    subtitle="HUGGO donne à votre commerce un assistant intelligent sur WhatsApp qui prend les commandes, recommande vos produits et fidélise vos clients. Opérationnel en quelques minutes, sans compétence technique."
+    ctaPrimary="Demander une démo"
+    microText="15 minutes · Rappel sous 24h"
+  />
+
+  <!-- S2: Problème / douleur -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label="Problèmes">
+    <div class="container max-w-4xl">
+      <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Vous reconnaissez ces situations ?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="pains-grid">
+        {[
+          { heading: 'Les plateformes prennent vos marges.', body: 'Chaque commande sur une plateforme de livraison vous coûte 20 à 30% de commission. À la fin du mois, c\'est votre rentabilité qui s\'évapore.', icon: '💸' },
+          { heading: 'Les pics d\'activité vous submergent.', body: 'Midi, vendredi soir, jours de marché : la file d\'attente s\'allonge, le téléphone sonne, les commandes se perdent. Vos clients repartent.', icon: '⏰' },
+          { heading: 'La digitalisation vous semble inaccessible.', body: 'Créer un site, développer une app, paramétrer un système de commande… Vous n\'avez ni le temps, ni le budget, ni l\'envie de devenir informaticien.', icon: '🔧' },
+        ].map((pain) => (
+          <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-7 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5 text-2xl" style="background-color: var(--color-accent-subtle);">
+              <span aria-hidden="true">{pain.icon}</span>
+            </div>
+            <h3 class="font-display font-semibold text-lg mb-3" style="color: var(--color-text-primary);">{pain.heading}</h3>
+            <p class="text-[0.9375rem] leading-relaxed" style="color: var(--color-text-secondary);">{pain.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S3: HUGGO comme réponse -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label="Réponses">
+    <div class="container max-w-4xl">
+      <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">HUGGO résout ces trois problèmes à la fois.</h2>
+      <div class="space-y-6">
+        {[
+          { heading: '0% de commission. Vos marges restent les vôtres.', body: 'WhatsApp est un canal direct. Pas de plateforme intermédiaire, pas de prélèvement à chaque commande. Vous conservez 100% de vos marges sur un abonnement mensuel fixe.', proof: '' },
+          { heading: 'Un assistant IA qui absorbe les pics.', body: 'Votre assistant HUGGO prend les commandes 24h/24 — y compris pendant le coup de feu. Il recommande, encaisse, confirme. Vos clients commandent à l\'avance, vous préparez sereinement.', proof: 'Preuve : 15M de commandes traitées, même en pics d\'activité.' },
+          { heading: 'Opérationnel en quelques minutes, sans rien installer.', body: 'Photo de votre carte, synchronisation de votre caisse, et votre assistant WhatsApp est en ligne. Pas d\'app à développer, pas de site à maintenir.', proof: 'Preuve : 0 à 30% de clientèle digitalisée en 1 mois.' },
+        ].map((answer) => (
+          <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-8 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+            <h3 class="font-display font-semibold text-lg mb-3" style="color: var(--color-text-primary);">{answer.heading}</h3>
+            <p class="text-[0.9375rem] leading-relaxed" style="color: var(--color-text-secondary);">{answer.body}</p>
+            {answer.proof && (
+              <p class="text-sm italic mt-3 flex items-center gap-2" style="color: var(--color-accent-action);">
+                <svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+                {answer.proof}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S4: Fonctionnalités par palier -->
+  <PricingTiers
+    locale={locale}
+    heading="Choisissez le palier qui correspond à votre commerce."
+    tiers={[
+      { name: 'Essentiel', description: 'L\'indispensable pour commencer à vendre sur WhatsApp.', features: ['Commande conversationnelle (vos clients commandent par message)', 'Panier et paiement intégré (Contodeo)', 'QR code Click & Collect', 'Suivi de commande en temps réel', 'Historique des commandes', 'Fiches clients automatiques'], ctaLabel: 'Demander un devis' },
+      { name: 'Smart', description: 'L\'intelligence qui fait la différence.', isPopular: true, features: ['Tout le palier Essentiel, plus :', 'Recommandations produits (vente additionnelle et croisée)', 'Mémoire client : « Comme d\'habitude ? » en un message', 'Push promotions (déstockage, nouveautés)', 'Relance automatique des paniers abandonnés'], ctaLabel: 'Demander un devis' },
+      { name: 'Marketing', description: 'Anticipez la demande. Ciblez vos clients.', features: ['Tout le palier Smart, plus :', 'Bannières publicitaires générées par IA', 'Modèle prédictif : croisement météo + événements locaux', 'Ciblage client par comportement d\'achat', 'Demande automatique d\'avis Google'], ctaLabel: 'Demander un devis' },
+      { name: 'Analytics', description: 'Les données pour piloter votre activité.', features: ['Chiffre d\'affaires détaillé par canal HUGGO', 'Panier moyen et taux de conversion', 'Heures de commande (optimisation planning)', 'Performance des campagnes promotionnelles', 'Recommandations de mise en avant produits'], ctaLabel: 'Demander un devis', isAddon: true },
+    ]}
+  />
+
+  <!-- S5: Panier synchronisé 360° -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label="Panier 360">
+    <div class="container max-w-4xl text-center">
+      <h2 class="font-display font-bold mb-6 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Un seul panier, partout.</h2>
+      <p class="text-lg leading-relaxed mb-10 animate max-w-2xl mx-auto" style="color: var(--color-text-secondary);">Votre client commence sa commande sur WhatsApp. Il passe en boutique, modifie son panier sur la borne. Il paie en caisse, par Apple Pay ou par carte. Peu importe le canal : le panier est le même, synchronisé en temps réel.</p>
+      <div class="flex flex-wrap justify-center gap-3 mb-10 animate">
+        {['WhatsApp', 'Borne en magasin', 'iPad', 'Caisse', 'Site web', 'Paiement'].map((channel) => (
+          <span class="px-5 py-2.5 rounded-xl text-sm font-semibold shadow-sm" style="background-color: var(--color-accent-subtle); color: var(--color-accent-action);">{channel}</span>
+        ))}
+      </div>
+      <p class="text-sm italic animate max-w-xl mx-auto" style="color: var(--color-text-secondary);">HUGGO se connecte à votre caisse existante — pas de changement d'infrastructure. Compatible avec les principaux systèmes de caisse via HubRise et Orisha Distribution.</p>
+    </div>
+  </section>
+
+  <!-- S6: Résultats chiffrés -->
+  <MetricsSection
+    heading="Des résultats mesurables dès le premier mois."
+    metrics={[
+      { value: '15', prefix: '+', suffix: ' à +30%', label: 'de panier moyen par rapport à une app mobile classique' },
+      { value: '60', suffix: '%', label: 'de clientèle digitalisée en 3 mois — y compris les non-technophiles' },
+      { value: '15', suffix: 'M', label: 'de commandes traitées via HUGGO depuis mars 2025' },
+    ]}
+  />
+
+  <!-- S7: Témoignage -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label="Témoignage">
+    <div class="container max-w-2xl text-center">
+      <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-10 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+        <h3 class="font-display font-semibold text-xl mb-4" style="color: var(--color-text-primary);">Rejoignez les commerçants qui reprennent le contrôle de leurs ventes.</h3>
+        <p class="text-[0.9375rem]" style="color: var(--color-text-secondary);">15M de commandes traitées. 3 distributeurs CHR qui déploient HUGGO à l'échelle nationale.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- S8: FAQ -->
+  <FaqSection items={[
+    { question: 'Mes clients préfèrent venir en boutique.', answer: 'HUGGO renforce le lien avec votre boutique. Vos clients pré-commandent, récupèrent en Click & Collect, retrouvent leur « comme d\'habitude » en un message. Moins de file d\'attente, plus de passages en magasin.' },
+    { question: 'J\'utilise déjà une plateforme de livraison.', answer: 'HUGGO ne remplace pas la livraison — il crée un canal direct pour votre clientèle régulière. Celle qui vient chercher, qui commande pour midi, qui repasse chaque semaine. Ces clients-là, vous les gardez sans reverser 25% de commission.' },
+    { question: 'Je ne suis pas informaticien.', answer: 'L\'installation prend quelques minutes. Photo de votre carte, synchronisation de votre caisse : l\'IA s\'occupe du reste. Aucune compétence technique requise.' },
+    { question: 'Mes clients n\'ont pas WhatsApp.', answer: '95% des smartphones en France ont WhatsApp installé. Vos clients n\'ont rien à télécharger, aucun compte à créer. Ils envoient un message — c\'est tout.' },
+  ]} />
+
+  <PreFooterCTA
+    locale={locale}
+    heading="Prêt à essayer ?"
+    subtext="Demandez une démo personnalisée — 15 minutes suffisent pour voir HUGGO en action sur votre commerce."
+    primaryCta="Demander une démo"
+    secondaryCta="Voir les tarifs →"
+    secondaryHref={getLocalePath(locale, 'pricing')}
+  />
+</PageLayout>
+
+<script>
+  import { initGSAP, createFadeUp, createCounter, createStaggeredFadeUp } from '../../utils/gsap-init';
+  import { initLenis } from '../../utils/lenis-init';
+  async function init() {
+    const result = await initGSAP();
+    if (!result) return;
+    const { gsap, ScrollTrigger } = result;
+    const counters = document.querySelectorAll('.counter');
+    if (counters.length > 0) createCounter(gsap, ScrollTrigger, counters);
+    createStaggeredFadeUp(gsap, ScrollTrigger, '#pains-grid', 'div');
+    createStaggeredFadeUp(gsap, ScrollTrigger, '#pricing-grid', '.card-lift, div[class*="card-lift"]');
+    document.querySelectorAll('.animate').forEach((el) => createFadeUp(gsap, ScrollTrigger, el));
+    await initLenis();
+  }
+  init();
+</script>

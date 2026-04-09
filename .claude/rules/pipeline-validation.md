@@ -85,7 +85,7 @@ Logs and checkpoints are in `.pipeline/`:
 .pipeline/
 ├── logs/          # stdout/stderr per agent
 ├── checkpoints/   # .started / .completed / .failed timestamps
-└── context-digests/  # pre-digested context for heavy agents
+└── context-digests/  # pre-digested context for heavy agents (5, 6, 7)
 ```
 
 ## Why `--append-system-prompt` is mandatory

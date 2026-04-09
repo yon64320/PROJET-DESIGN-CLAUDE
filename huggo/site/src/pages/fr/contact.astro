@@ -1,0 +1,167 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import FormInput from '../../components/ui/FormInput.astro';
+import { getLocalePath } from '../../utils/i18n';
+
+const locale = 'fr';
+const formEndpointDemo = import.meta.env.FORM_ENDPOINT_DEMO || '#';
+const formEndpointContact = import.meta.env.FORM_ENDPOINT_CONTACT || '#';
+const contactEmail = import.meta.env.CONTACT_EMAIL || 'contact@huggo.ai';
+const contactPhone = import.meta.env.CONTACT_PHONE || '+33 X XX XX XX XX';
+const whatsappNumber = import.meta.env.WHATSAPP_NUMBER || '';
+---
+
+<PageLayout title="Contact — Demandez une démo HUGGO | Sous 24h" description="Demandez une démo personnalisée de HUGGO en 30 secondes. Commerçant ou distributeur, notre équipe vous rappelle sous 24h. Sans engagement." locale={locale} alternateUrl="/en/contact">
+
+  <!-- S1: Hero contact -->
+  <section class="relative overflow-hidden" style="background-color: var(--color-surface-primary);">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+      <div class="absolute -top-20 -right-20 w-[400px] h-[400px] rounded-full opacity-10" style="background: radial-gradient(circle, var(--color-accent-action) 0%, transparent 70%);"></div>
+    </div>
+    <div class="container relative z-10 max-w-4xl text-center py-20 lg:py-28">
+      <h1 class="font-display font-bold leading-tight mb-5 css-fade-up" style="font-size: clamp(1.875rem, 4vw, 2.75rem); color: var(--color-text-primary);">Demandez votre démo en 30 secondes.</h1>
+      <p class="text-lg leading-relaxed max-w-2xl mx-auto css-fade-up css-fade-up-delay-1" style="color: var(--color-text-secondary);">Notre équipe vous rappelle sous 24h pour une démo personnalisée de 15 minutes. Vous verrez HUGGO en action sur votre commerce.</p>
+    </div>
+  </section>
+
+  <!-- S2: Formulaire démo -->
+  <section class="py-16 lg:py-20" style="background-color: var(--color-surface-secondary);" aria-label="Formulaire démo">
+    <div class="container max-w-2xl">
+      <h2 class="font-display font-bold text-center mb-10 css-fade-up" style="font-size: clamp(1.375rem, 3vw, 1.75rem); color: var(--color-text-primary);">Vous êtes commerçant ? Demandez une démo.</h2>
+
+      <form id="demo-form" class="space-y-5 css-fade-up css-fade-up-delay-1" data-endpoint={formEndpointDemo}>
+        <!-- Honeypot -->
+        <div class="hidden" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off" /></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <FormInput type="text" name="name" label="Votre nom" placeholder="Jean Dupont" required={true} />
+          <FormInput type="text" name="business" label="Nom de votre commerce" placeholder="Boulangerie du Marché" required={true} />
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <FormInput type="email" name="email" label="Votre email professionnel" placeholder="jean@boulangerie.fr" required={true} />
+          <FormInput type="tel" name="phone" label="Votre téléphone" placeholder="06 12 34 56 78" required={true} />
+        </div>
+        <FormInput type="select" name="type" label="Vous êtes…" required={true} options={[
+          { value: 'boulangerie', label: 'Boulangerie / Pâtisserie' },
+          { value: 'restaurant', label: 'Restaurant / Traiteur' },
+          { value: 'epicerie', label: 'Épicerie / Alimentation' },
+          { value: 'caviste', label: 'Caviste / Bar' },
+          { value: 'autre', label: 'Autre commerce' },
+        ]} />
+        <FormInput type="textarea" name="message" label="Message" placeholder="Dites-nous en plus sur votre activité (optionnel)" />
+
+        <button type="submit" id="demo-submit" class="inline-flex items-center justify-center gap-2 w-full h-[50px] bg-[var(--color-accent-action)] text-white font-semibold text-[0.9375rem] tracking-wide rounded-[20px] hover:bg-[var(--color-accent-action-hover)] hover:shadow-[0_4px_20px_rgba(245,146,10,0.35)] active:scale-[0.97] transition-all duration-150 group" data-analytics="demo_form_submit">
+          Envoyer ma demande de démo
+          <svg class="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+        </button>
+        <p class="text-sm text-center" style="color: var(--color-text-secondary);">Nous vous rappelons sous 24h. Sans engagement.</p>
+      </form>
+
+      <div id="demo-success" class="hidden mt-6 p-6 rounded-xl text-center" style="background-color: var(--color-feedback-success); color: white;">
+        <p class="font-semibold">Merci ! Votre demande est envoyée.</p>
+        <p class="text-sm mt-1 opacity-90">Notre équipe vous rappelle sous 24h pour planifier votre démo.</p>
+      </div>
+      <div id="demo-error" class="hidden mt-6 p-6 rounded-xl text-center" style="background-color: var(--color-feedback-error); color: white;">
+        <p class="font-semibold">Une erreur est survenue.</p>
+        <p class="text-sm mt-1 opacity-90">Réessayez ou contactez-nous directement sur WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- S3: Formulaire contact distributeurs -->
+  <section class="py-16 lg:py-20" style="background-color: var(--color-surface-primary);" aria-label="Formulaire contact">
+    <div class="container max-w-2xl">
+      <h2 class="font-display font-bold text-center mb-10 css-fade-up" style="font-size: clamp(1.375rem, 3vw, 1.75rem); color: var(--color-text-primary);">Vous êtes distributeur ou réseau ? Parlons de votre déploiement.</h2>
+
+      <form id="contact-form" class="space-y-5 css-fade-up css-fade-up-delay-1" data-endpoint={formEndpointContact}>
+        <div class="hidden" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off" /></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <FormInput type="text" name="name" label="Votre nom" placeholder="Marie Martin" required={true} />
+          <FormInput type="text" name="business" label="Votre entreprise" placeholder="Groupe Distribution France" required={true} />
+        </div>
+        <FormInput type="email" name="email" label="Votre email professionnel" placeholder="marie@groupe.fr" required={true} />
+        <FormInput type="textarea" name="message" label="Votre message" placeholder="Nombre de points de vente, besoins spécifiques…" required={true} />
+
+        <button type="submit" id="contact-submit" class="inline-flex items-center justify-center gap-2 w-full h-[50px] border-2 font-semibold text-[0.9375rem] rounded-[20px] active:scale-[0.97] transition-all duration-150 group" style="border-color: var(--color-brand-primary); color: var(--color-brand-primary);" data-analytics="contact_form_submit">
+          Envoyer ma demande
+          <svg class="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+        </button>
+        <p class="text-sm text-center" style="color: var(--color-text-secondary);">Notre équipe commerciale vous recontacte rapidement.</p>
+      </form>
+
+      <div id="contact-success" class="hidden mt-6 p-6 rounded-xl text-center" style="background-color: var(--color-feedback-success); color: white;">
+        <p class="font-semibold">Merci ! Votre demande a été transmise à notre équipe commerciale.</p>
+        <p class="text-sm mt-1 opacity-90">Nous revenons vers vous rapidement.</p>
+      </div>
+      <div id="contact-error" class="hidden mt-6 p-6 rounded-xl text-center" style="background-color: var(--color-feedback-error); color: white;">
+        <p class="font-semibold">Une erreur est survenue.</p>
+        <p class="text-sm mt-1 opacity-90">Réessayez ou contactez-nous directement sur WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4: Coordonnées -->
+  <section class="py-16 lg:py-20" style="background-color: var(--color-surface-secondary);" aria-label="Coordonnées">
+    <div class="container max-w-2xl text-center">
+      <h2 class="font-display font-bold mb-8 css-fade-up" style="font-size: clamp(1.375rem, 3vw, 1.75rem); color: var(--color-text-primary);">Ou contactez-nous directement.</h2>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-6 css-fade-up css-fade-up-delay-1">
+        <a href={`mailto:${contactEmail}`} class="flex items-center gap-3 px-6 py-4 bg-[var(--color-surface-elevated)] border rounded-xl shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all duration-150" style="border-color: var(--color-border-default);">
+          <svg class="w-5 h-5" style="color: var(--color-brand-primary);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+          <span class="text-sm font-semibold" style="color: var(--color-text-primary);">{contactEmail}</span>
+        </a>
+        <a href={`tel:${contactPhone.replace(/\s/g, '')}`} class="flex items-center gap-3 px-6 py-4 bg-[var(--color-surface-elevated)] border rounded-xl shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all duration-150" style="border-color: var(--color-border-default);">
+          <svg class="w-5 h-5" style="color: var(--color-brand-primary);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
+          <span class="text-sm font-semibold" style="color: var(--color-text-primary);">{contactPhone}</span>
+        </a>
+        {whatsappNumber && (
+          <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-6 py-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-150 text-white" style="background-color: #25D366;">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" /></svg>
+            <span class="text-sm font-semibold">WhatsApp</span>
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- S5: Rassurance finale -->
+  <section class="py-16 lg:py-20" style="background-color: var(--color-surface-primary);" aria-label="Rassurance">
+    <div class="container max-w-4xl">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          { title: 'Sans engagement', desc: 'Découvrez HUGGO sans vous engager. La démo est gratuite et sans obligation.' },
+          { title: 'Démo de 15 minutes', desc: 'En 15 minutes, vous voyez HUGGO en action sur votre type de commerce. Questions, cas d\'usage, tarifs : on couvre tout.' },
+          { title: 'Rappel sous 24h', desc: 'Vous remplissez le formulaire, nous vous rappelons dans les 24 heures pour fixer un créneau.' },
+        ].map((block) => (
+          <div class="text-center bg-[var(--color-surface-elevated)] border rounded-xl p-6 shadow-[var(--shadow-sm)] css-fade-up" style="border-color: var(--color-border-default);">
+            <h3 class="font-display font-semibold mb-2" style="color: var(--color-brand-primary);">{block.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--color-text-secondary);">{block.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<script>
+  import { initForm } from '../../utils/form-handler';
+
+  // Demo form
+  const demoForm = document.getElementById('demo-form') as HTMLFormElement;
+  if (demoForm) {
+    initForm('demo-form', demoForm.dataset.endpoint || '#', {
+      successMessageId: 'demo-success',
+      errorMessageId: 'demo-error',
+      submitButtonId: 'demo-submit',
+    });
+  }
+
+  // Contact form
+  const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+  if (contactForm) {
+    initForm('contact-form', contactForm.dataset.endpoint || '#', {
+      successMessageId: 'contact-success',
+      errorMessageId: 'contact-error',
+      submitButtonId: 'contact-submit',
+    });
+  }
+</script>

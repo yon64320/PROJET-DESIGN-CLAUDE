@@ -1,0 +1,91 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'tertiary';
+  href?: string;
+  type?: 'button' | 'submit';
+  class?: string;
+  arrowIcon?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+  id?: string;
+  dataAnalytics?: string;
+  dataPosition?: string;
+}
+
+const {
+  variant = 'primary',
+  href,
+  type = 'button',
+  class: className = '',
+  arrowIcon = false,
+  disabled = false,
+  loading = false,
+  id,
+  dataAnalytics,
+  dataPosition,
+} = Astro.props;
+
+const baseClasses = 'inline-flex items-center justify-center gap-2 font-button rounded-lg transition-all duration-150 btn-press focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus';
+
+const variantClasses = {
+  primary: 'px-6 h-[50px] bg-accent-action text-text-on-accent hover:bg-accent-action-hover hover:shadow-accent-glow active:bg-accent-action-pressed active:scale-[0.98]',
+  secondary: 'px-6 h-[50px] border-2 border-brand-primary text-brand-primary hover:bg-brand-primary/[0.08] hover:border-brand-primary-hover active:bg-brand-primary/[0.15] active:scale-[0.98]',
+  tertiary: 'text-brand-primary hover:text-brand-primary-hover hover:underline active:opacity-80',
+};
+
+const disabledClasses = {
+  primary: 'bg-border text-text-secondary cursor-not-allowed shadow-none hover:bg-border hover:shadow-none',
+  secondary: 'border-border text-text-secondary cursor-not-allowed hover:bg-transparent hover:border-border',
+  tertiary: 'text-text-secondary opacity-50 cursor-not-allowed hover:no-underline',
+};
+
+const classes = `${baseClasses} ${disabled ? disabledClasses[variant] : variantClasses[variant]} ${className}`;
+
+const Tag = href ? 'a' : 'button';
+---
+
+{href ? (
+  <a
+    href={disabled ? undefined : href}
+    class={classes}
+    id={id}
+    role="button"
+    aria-disabled={disabled ? 'true' : undefined}
+    data-analytics={dataAnalytics}
+    data-position={dataPosition}
+  >
+    <slot />
+    {arrowIcon && (
+      <svg class="w-4 h-4 btn-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    )}
+  </a>
+) : (
+  <button
+    type={type}
+    class={classes}
+    id={id}
+    disabled={disabled}
+    aria-disabled={disabled ? 'true' : undefined}
+    aria-busy={loading ? 'true' : undefined}
+    data-analytics={dataAnalytics}
+    data-position={dataPosition}
+  >
+    {loading ? (
+      <svg class="w-4 h-4 spinner" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+    ) : (
+      <>
+        <slot />
+        {arrowIcon && (
+          <svg class="w-4 h-4 btn-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        )}
+      </>
+    )}
+  </button>
+)}

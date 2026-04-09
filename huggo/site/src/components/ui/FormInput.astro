@@ -1,0 +1,72 @@
+---
+interface Props {
+  type?: 'text' | 'email' | 'tel' | 'textarea' | 'select';
+  name: string;
+  label: string;
+  placeholder?: string;
+  required?: boolean;
+  options?: { value: string; label: string }[];
+  id?: string;
+}
+
+const {
+  type = 'text',
+  name,
+  label,
+  placeholder = '',
+  required = false,
+  options = [],
+  id,
+} = Astro.props;
+
+const inputId = id || `field-${name}`;
+const errorId = `${inputId}-error`;
+
+const inputClasses = 'w-full bg-surface-elevated border border-border rounded-sm px-4 text-body-md text-text-primary placeholder:text-text-secondary/60 form-field hover:border-brand-primary/50 focus:border-border-focus focus:ring-2 focus:ring-border-focus/30 focus:outline-none';
+---
+
+<div class="flex flex-col gap-element-2xs">
+  <label for={inputId} class="text-body-sm font-semibold text-text-primary">
+    {label}
+    {required && <span class="text-feedback-error ml-1" aria-hidden="true">*</span>}
+  </label>
+
+  {type === 'textarea' ? (
+    <textarea
+      id={inputId}
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      aria-required={required ? 'true' : undefined}
+      aria-describedby={errorId}
+      class={`${inputClasses} h-[120px] py-3 resize-y`}
+    ></textarea>
+  ) : type === 'select' ? (
+    <select
+      id={inputId}
+      name={name}
+      required={required}
+      aria-required={required ? 'true' : undefined}
+      aria-describedby={errorId}
+      class={`${inputClasses} h-[48px] appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg%20xmlns%3d%22http%3a%2f%2fwww.w3.org%2f2000%2fsvg%22%20width%3d%2224%22%20height%3d%2224%22%20viewBox%3d%220%200%2024%2024%22%20fill%3d%22none%22%20stroke%3d%22%235A6066%22%20stroke-width%3d%222%22%3e%3cpath%20d%3d%22M6%209l6%206%206-6%22%2f%3e%3c%2fsvg%3e')] bg-no-repeat bg-[right_0.75rem_center] bg-[length:1.25rem] pr-10`}
+    >
+      <option value="" disabled selected>{placeholder || label}</option>
+      {options.map((opt) => (
+        <option value={opt.value}>{opt.label}</option>
+      ))}
+    </select>
+  ) : (
+    <input
+      type={type}
+      id={inputId}
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      aria-required={required ? 'true' : undefined}
+      aria-describedby={errorId}
+      class={`${inputClasses} h-[48px]`}
+    />
+  )}
+
+  <p id={errorId} class="text-body-sm text-feedback-error hidden" role="alert"></p>
+</div>

@@ -1,0 +1,58 @@
+---
+import { getLocalePath } from '../../utils/i18n';
+
+interface Props {
+  locale: 'fr' | 'en';
+  heading: string;
+  subtext?: string;
+  primaryCta: string;
+  primaryHref?: string;
+  secondaryCta?: string;
+  secondaryHref?: string;
+}
+
+const {
+  locale,
+  heading,
+  subtext,
+  primaryCta,
+  primaryHref,
+  secondaryCta,
+  secondaryHref,
+} = Astro.props;
+
+const defaultPrimaryHref = getLocalePath(locale, 'contact');
+const defaultSecondaryHref = getLocalePath(locale, 'contact');
+---
+
+<section class="relative overflow-hidden animate" aria-label={heading} style="background-color: var(--color-surface-brand);">
+  <!-- Decorative gradient orbs -->
+  <div class="absolute top-0 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2" aria-hidden="true"></div>
+  <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-[var(--color-accent-action)]/10 rounded-full blur-3xl translate-y-1/2" aria-hidden="true"></div>
+
+  <div class="container relative z-10 text-center max-w-3xl mx-auto py-20 lg:py-24">
+    <h2 class="text-[clamp(1.625rem,3.5vw,2.25rem)] font-display font-bold text-white mb-5 leading-tight">{heading}</h2>
+    {subtext && <p class="text-lg text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">{subtext}</p>}
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a
+        href={primaryHref || defaultPrimaryHref}
+        class="inline-flex items-center gap-2 px-8 h-[50px] bg-[var(--color-accent-action)] text-white font-semibold text-[0.9375rem] tracking-wide rounded-[20px] hover:bg-[var(--color-accent-action-hover)] hover:shadow-[0_4px_20px_rgba(245,146,10,0.4)] active:scale-[0.97] transition-all duration-150 w-full sm:w-auto justify-center group"
+        data-analytics="cta_demo_click"
+        data-position="pre-footer"
+      >
+        {primaryCta}
+        <svg class="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </a>
+      {secondaryCta && (
+        <a
+          href={secondaryHref || defaultSecondaryHref}
+          class="inline-flex items-center gap-2 px-8 h-[50px] border-2 border-white/30 text-white font-semibold text-[0.9375rem] rounded-[20px] hover:bg-white/10 hover:border-white/50 active:scale-[0.97] transition-all duration-150 w-full sm:w-auto justify-center"
+        >
+          {secondaryCta}
+        </a>
+      )}
+    </div>
+  </div>
+</section>

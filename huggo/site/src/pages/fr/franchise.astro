@@ -1,0 +1,117 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import HeroPage from '../../components/sections/HeroPage.astro';
+import MetricsSection from '../../components/sections/MetricsSection.astro';
+import FaqSection from '../../components/sections/FaqSection.astro';
+import PreFooterCTA from '../../components/global/PreFooterCTA.astro';
+import { getLocalePath } from '../../utils/i18n';
+
+const locale = 'fr';
+---
+
+<PageLayout
+  title="HUGGO Franchise — Déploiement WhatsApp réseau | Analytics"
+  description="Déployez HUGGO sur tout votre réseau de franchises. Un assistant IA par point de vente, analytics consolidés, gestion centralisée. Contactez-nous."
+  locale={locale}
+  alternateUrl="/en/franchise"
+>
+  <HeroPage
+    locale={locale}
+    h1="Déployez HUGGO sur tout votre réseau. Un assistant IA par point de vente."
+    subtitle="Chaque franchisé dispose de son propre assistant WhatsApp, personnalisé à son commerce. Vous gardez la main sur l'ensemble du réseau : analytics consolidés, gestion centralisée, déploiement progressif ou simultané."
+    ctaPrimary="Nous contacter"
+    microText="Tarification réseau sur demande"
+  />
+
+  <!-- S2: Problématique réseau -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label="Enjeux réseau">
+    <div class="container max-w-4xl">
+      <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Gérer un réseau de franchises, c'est aussi gérer ses incohérences.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          { heading: 'Déploiement hétérogène.', body: 'Chaque point de vente adopte ses propres outils. Résultat : pas de vision d\'ensemble, pas de standard client, pas de données comparables.' },
+          { heading: 'Analytics fragmentés.', body: 'Les données sont dispersées entre les caisses, les plateformes, les tableurs. Impossible de comparer la performance de 200 points de vente sur un même tableau de bord.' },
+          { heading: 'Expérience client non uniforme.', body: 'Un client commande facilement dans un point de vente, galère dans un autre. Votre marque perd en cohérence.' },
+        ].map((issue) => (
+          <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-7 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+            <h3 class="font-display font-semibold text-lg mb-3" style="color: var(--color-text-primary);">{issue.heading}</h3>
+            <p class="text-[0.9375rem] leading-relaxed" style="color: var(--color-text-secondary);">{issue.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S3: HUGGO pour les réseaux -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label="Réponses réseau">
+    <div class="container max-w-4xl">
+      <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Un réseau, une plateforme, un standard.</h2>
+      <div class="space-y-6">
+        {[
+          { heading: 'Déploiement simultané, point par point.', body: 'Activez HUGGO sur 50, 200 ou 500 points de vente. Chaque franchisé obtient son assistant IA en quelques minutes — menu local, horaires locaux, promotions locales.', proof: 'Preuve : 3 distributeurs CHR déploient déjà HUGGO à l\'échelle nationale.' },
+          { heading: 'Analytics réseau consolidés.', body: 'Un tableau de bord unique : chiffre d\'affaires par point de vente, panier moyen, taux de conversion, performance des campagnes. Vue réseau + vue individuelle.', proof: '' },
+          { heading: 'Personnalisation locale sous contrôle central.', body: 'Chaque point de vente a son propre menu, ses horaires, ses promotions. Le siège garde la main sur la marque, les standards et les reportings.', proof: '' },
+        ].map((answer) => (
+          <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-8 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+            <h3 class="font-display font-semibold text-lg mb-3" style="color: var(--color-text-primary);">{answer.heading}</h3>
+            <p class="text-[0.9375rem] leading-relaxed" style="color: var(--color-text-secondary);">{answer.body}</p>
+            {answer.proof && <p class="text-sm italic mt-3 flex items-center gap-2" style="color: var(--color-accent-action);"><svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>{answer.proof}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S4: Fonctionnalités réseau -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label="Fonctionnalités réseau">
+    <div class="container max-w-3xl">
+      <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Conçu pour les réseaux.</h2>
+      <div class="space-y-4">
+        {[
+          { label: 'Onboarding batch', desc: 'activez des dizaines de points de vente en une opération' },
+          { label: 'Gestion centralisée', desc: 'paramétrage, mises à jour et promotions depuis le siège' },
+          { label: 'Reporting consolidé', desc: 'CA, panier moyen, taux de conversion — par réseau et par point de vente' },
+          { label: 'Personnalisation locale', desc: 'menu, horaires, prix et promotions adaptés à chaque franchisé' },
+          { label: 'Multi-langue', desc: 'chaque assistant s\'adapte à la langue de la clientèle locale' },
+        ].map((feature) => (
+          <div class="flex items-start gap-4 bg-[var(--color-surface-elevated)] border rounded-xl p-5 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" style="color: var(--color-feedback-success);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+            <p class="text-[0.9375rem]"><strong class="font-semibold" style="color: var(--color-text-primary);">{feature.label}</strong> <span style="color: var(--color-text-secondary);">— {feature.desc}</span></p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <MetricsSection heading="Des résultats à l'échelle." metrics={[
+    { value: '15', suffix: 'M', label: 'de commandes traitées via HUGGO' },
+    { value: '3', label: 'distributeurs CHR déployant HUGGO à l\'échelle nationale' },
+    { value: '60', suffix: '%', label: 'de clientèle digitalisée en 3 mois par point de vente' },
+  ]} />
+
+  <!-- S6: Témoignage -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label="Témoignage">
+    <div class="container max-w-2xl text-center">
+      <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-10 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+        <h3 class="font-display font-semibold text-xl mb-4" style="color: var(--color-text-primary);">3 distributeurs CHR font déjà confiance à HUGGO pour leur réseau national.</h3>
+        <p class="text-sm" style="color: var(--color-text-secondary);">[Logos distributeurs — à fournir]</p>
+      </div>
+    </div>
+  </section>
+
+  <FaqSection items={[
+    { question: 'Comment déployer sur 200 points de vente ?', answer: 'HUGGO propose un onboarding batch. Chaque point de vente est activé avec son menu, ses horaires et ses paramètres locaux. Le déploiement peut être progressif (par zone) ou simultané. Notre équipe pilote le lancement avec vous.' },
+    { question: 'Chaque franchisé a son propre menu et ses horaires.', answer: 'Chaque point de vente dispose de son assistant IA personnalisé — menu, horaires, prix, promotions. Le siège garde la main sur les standards réseau et les reportings consolidés.' },
+    { question: 'Quel reporting réseau proposez-vous ?', answer: 'Un tableau de bord unique avec vue réseau et vue par point de vente : chiffre d\'affaires, panier moyen, taux de conversion, heures de commande, performance des campagnes.' },
+    { question: 'Le pricing est-il adapté au volume ?', answer: 'La tarification est dégressive selon le nombre de points de vente. Contactez notre équipe commerciale pour un devis réseau.' },
+  ]} />
+
+  <PreFooterCTA locale={locale} heading="Discutons de votre déploiement." subtext="Notre équipe commerciale vous présente HUGGO et construit une proposition adaptée à la taille de votre réseau." primaryCta="Nous contacter" secondaryCta="Demander une démo" />
+</PageLayout>
+
+<script>
+  import { initGSAP, createFadeUp, createCounter } from '../../utils/gsap-init';
+  import { initLenis } from '../../utils/lenis-init';
+  async function init() { const result = await initGSAP(); if (!result) return; const { gsap, ScrollTrigger } = result; const counters = document.querySelectorAll('.counter'); if (counters.length > 0) createCounter(gsap, ScrollTrigger, counters); document.querySelectorAll('.animate').forEach((el) => createFadeUp(gsap, ScrollTrigger, el)); await initLenis(); }
+  init();
+</script>

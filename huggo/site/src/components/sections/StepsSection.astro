@@ -1,0 +1,55 @@
+---
+interface Step {
+  number: number;
+  heading: string;
+  body: string;
+}
+
+interface Props {
+  heading: string;
+  steps: Step[];
+  cta?: string;
+  ctaHref?: string;
+  detailed?: boolean;
+}
+
+const { heading, steps, cta, ctaHref, detailed = false } = Astro.props;
+---
+
+<section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label={heading}>
+  <div class="container max-w-3xl">
+    <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">{heading}</h2>
+    <div class="relative" id="steps-container">
+      {/* Vertical progress line */}
+      <div class="absolute left-6 top-6 bottom-6 w-0.5 rounded-full" style="background: linear-gradient(to bottom, var(--color-accent-action), var(--color-brand-primary));" aria-hidden="true" id="progress-line"></div>
+
+      <div class="space-y-6 lg:space-y-8">
+        {steps.map((step, i) => (
+          <div class={`flex gap-6 animate ${detailed ? 'step-item' : ''}`}>
+            <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-mono font-bold text-lg relative z-10 shadow-md transition-transform duration-200 hover:scale-110" style="background-color: var(--color-accent-action); color: white;">
+              {step.number}
+            </div>
+            <div class="flex-1 pt-1 pb-2">
+              <h3 class="font-display font-semibold text-lg mb-2" style="color: var(--color-text-primary);">{step.heading}</h3>
+              <p class="text-[0.9375rem] leading-relaxed" style="color: var(--color-text-secondary);">{step.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    {cta && ctaHref && (
+      <div class="text-center mt-10 animate">
+        <a
+          href={ctaHref}
+          class="inline-flex items-center gap-2 font-semibold transition-all duration-150 group hover:gap-3"
+          style="color: var(--color-brand-primary);"
+        >
+          {cta}
+          <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+      </div>
+    )}
+  </div>
+</section>

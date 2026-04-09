@@ -1,0 +1,20 @@
+---
+interface Props {
+  question: string;
+  id?: string;
+}
+
+const { question, id } = Astro.props;
+---
+
+<details class="bg-surface-elevated border-b border-border group" id={id}>
+  <summary class="flex items-center justify-between p-component-sm cursor-pointer text-heading-md font-display hover:bg-surface-secondary transition-colors duration-150 list-none">
+    <span>{question}</span>
+    <svg class="w-5 h-5 flex-shrink-0 text-text-secondary accordion-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </summary>
+  <div class="px-component-sm pb-component-sm text-body-md text-text-secondary">
+    <slot />
+  </div>
+</details>

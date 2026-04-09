@@ -1,0 +1,8 @@
+node_modules/
+dist/
+dist_backup_v1/
+src_old/
+.astro/
+.env
+.env.local
+.vercel/

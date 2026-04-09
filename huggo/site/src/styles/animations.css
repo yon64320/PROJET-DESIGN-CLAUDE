@@ -1,0 +1,206 @@
+/* === CSS-ONLY ANIMATIONS (Tier 1) === */
+
+/* Fade-up entrance (CSS fallback for non-JS pages like Contact) */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.css-fade-up {
+  animation: fadeUp var(--duration-slow) var(--ease-spring) both;
+}
+
+.css-fade-up-delay-1 { animation-delay: 200ms; }
+.css-fade-up-delay-2 { animation-delay: 300ms; }
+.css-fade-up-delay-3 { animation-delay: 400ms; }
+.css-fade-up-delay-4 { animation-delay: 500ms; }
+
+/* Logo bar infinite scroll */
+@keyframes logoScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.33%);
+  }
+}
+
+.logo-bar-track {
+  display: flex;
+  gap: 1.5rem;
+  animation: logoScroll 30s linear infinite;
+  will-change: transform;
+}
+
+/* Button arrow slide */
+.btn-arrow {
+  transition: transform var(--duration-fast) var(--ease-default);
+}
+
+.group:hover .btn-arrow,
+button:hover .btn-arrow,
+a:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Button press scale */
+.btn-press:active {
+  transform: scale(0.98);
+  transition: transform var(--duration-instant) var(--ease-default);
+}
+
+/* Card hover lift */
+.card-lift {
+  transition: transform var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Accordion chevron rotation */
+.accordion-chevron {
+  transition: transform var(--duration-fast) var(--ease-in-out);
+}
+
+[open] .accordion-chevron,
+.accordion-open .accordion-chevron {
+  transform: rotate(90deg);
+}
+
+/* Accordion content reveal */
+.accordion-content {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height var(--duration-normal) var(--ease-in-out),
+              opacity var(--duration-normal) var(--ease-in-out);
+}
+
+[open] .accordion-content,
+.accordion-open .accordion-content {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+/* Header compact transition */
+.header-compact {
+  transition: height var(--duration-fast) var(--ease-default),
+              background-color var(--duration-fast) var(--ease-default);
+}
+
+/* Form field focus transition */
+.form-field {
+  transition: border-color var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+}
+
+/* Error shake */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+.shake {
+  animation: shake 300ms var(--ease-default);
+}
+
+/* Form success fade-in */
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-slide-down {
+  animation: fadeSlideDown 300ms var(--ease-default) both;
+}
+
+/* Loading spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* WhatsApp button hover */
+.whatsapp-btn {
+  transition: transform var(--duration-fast) var(--ease-default),
+              box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.05);
+}
+
+.whatsapp-btn:active {
+  transform: scale(0.95);
+}
+
+/* Mobile menu overlay */
+@keyframes menuOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-overlay {
+  animation: menuOpen var(--duration-normal) var(--ease-in-out) both;
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .animate {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .logo-bar-track {
+    animation: none !important;
+  }
+
+  .card-lift:hover {
+    transform: none;
+  }
+
+  .whatsapp-btn:hover,
+  .whatsapp-btn:active {
+    transform: none;
+  }
+}
+
+/* No-JS fallback */
+noscript + .animate,
+.no-js .animate {
+  opacity: 1;
+  transform: none;
+}

@@ -1,0 +1,150 @@
+---
+import { getLocalePath } from '../../utils/i18n';
+
+interface Props {
+  locale: 'fr' | 'en';
+}
+
+const { locale } = Astro.props;
+
+const content = locale === 'fr' ? {
+  h1: 'Vos clients commandent par WhatsApp. Vous encaissez sans commission.',
+  subtitle: 'HUGGO donne à votre commerce son propre assistant IA sur WhatsApp. Il prend les commandes, recommande vos produits, fidélise vos clients — 24h/24, 7j/7. Vous êtes opérationnel en quelques minutes.',
+  baseline: 'You chat, You go!',
+  ctaPrimary: 'Demander une démo',
+  ctaSecondary: 'Je suis distributeur / réseau — Nous contacter',
+  microText: 'Rappel sous 24h · Sans engagement',
+  splineAlt: 'Smartphone affichant une conversation WhatsApp avec l\'assistant HUGGO',
+  splineLoading: 'Chargement de l\'expérience 3D...',
+} : {
+  h1: 'Your customers order on WhatsApp. You keep every cent.',
+  subtitle: 'HUGGO gives your store its own AI assistant on WhatsApp. It takes orders, recommends your products, and keeps your customers coming back — 24/7. You\'re live in minutes.',
+  baseline: 'You chat, You go!',
+  ctaPrimary: 'Request a demo',
+  ctaSecondary: 'I\'m a distributor / network — Contact us',
+  microText: 'We\'ll call you within 24h · No commitment',
+  splineAlt: 'Smartphone displaying a WhatsApp conversation with the HUGGO assistant',
+  splineLoading: 'Loading 3D experience...',
+};
+---
+
+<section class="relative min-h-[calc(100vh-72px)] flex items-center overflow-hidden" aria-label={locale === 'fr' ? 'Accueil' : 'Home'} style="background-color: var(--color-surface-primary);">
+  <!-- Decorative background elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <!-- Large gradient orb top-right -->
+    <div class="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-30" style="background: radial-gradient(circle, var(--color-accent-action) 0%, transparent 70%);"></div>
+    <!-- Small gradient orb bottom-left -->
+    <div class="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full opacity-20" style="background: radial-gradient(circle, var(--color-brand-primary) 0%, transparent 70%);"></div>
+    <!-- Subtle grid pattern -->
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle at 1px 1px, var(--color-text-primary) 1px, transparent 0); background-size: 40px 40px;"></div>
+  </div>
+
+  <div class="container relative z-10 py-16 lg:py-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Text column -->
+      <div class="max-w-xl">
+        <h1 class="font-display font-bold leading-[1.1] tracking-tight mb-6 animate" id="hero-h1" style="font-size: clamp(2.25rem, 5vw, 3.5rem); color: var(--color-text-primary);">
+          {content.h1}
+        </h1>
+
+        <p class="text-lg leading-relaxed mb-3 animate" style="color: var(--color-text-secondary);">
+          {content.subtitle}
+        </p>
+
+        <p class="text-sm font-semibold mb-10 animate" style="color: var(--color-accent-action);">
+          {content.baseline}
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-4 animate">
+          <a
+            href={getLocalePath(locale, 'contact')}
+            class="inline-flex items-center justify-center gap-2 px-8 h-[50px] bg-[var(--color-accent-action)] text-white font-semibold text-[0.9375rem] tracking-wide rounded-[20px] hover:bg-[var(--color-accent-action-hover)] hover:shadow-[0_4px_20px_rgba(245,146,10,0.35)] active:scale-[0.97] transition-all duration-150 group w-full sm:w-auto"
+            data-analytics="cta_demo_click"
+            data-position="hero"
+          >
+            {content.ctaPrimary}
+            <svg class="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+
+          <a
+            href={getLocalePath(locale, 'contact')}
+            class="inline-flex items-center justify-center gap-2 px-6 h-[50px] border-2 rounded-[20px] font-semibold text-[0.9375rem] hover:bg-[var(--color-brand-primary)]/[0.08] active:scale-[0.97] transition-all duration-150 w-full sm:w-auto"
+            style="border-color: var(--color-brand-primary); color: var(--color-brand-primary);"
+          >
+            {content.ctaSecondary}
+          </a>
+        </div>
+
+        <p class="text-sm animate" style="color: var(--color-text-secondary);">
+          {content.microText}
+        </p>
+      </div>
+
+      <!-- Visual column (Spline 3D or fallback) -->
+      <div class="relative flex items-center justify-center lg:justify-end" id="hero-3d-container">
+        <!-- Decorative ring behind the visual -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+          <div class="w-[90%] h-[90%] rounded-3xl border-2 border-dashed opacity-10 rotate-3" style="border-color: var(--color-brand-primary);"></div>
+        </div>
+
+        <!-- Fallback image (always rendered, hidden when Spline loads) -->
+        <div id="spline-fallback" class="relative w-full max-w-md animate">
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.12)]" style="background: linear-gradient(135deg, var(--color-surface-elevated) 0%, var(--color-surface-secondary) 100%);">
+            <img
+              src="/images/hero-smartphone-fallback.webp"
+              alt={content.splineAlt}
+              width="800"
+              height="600"
+              class="w-full h-full object-contain"
+              loading="eager"
+              onerror="this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full\'><div class=\'text-center p-8\'><div class=\'w-20 h-20 mx-auto mb-4 rounded-2xl flex items-center justify-center\' style=\'background-color: var(--color-brand-primary);\'><svg class=\'w-10 h-10 text-white\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'currentColor\' stroke-width=\'1.5\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3\' /></svg></div><p class=\'text-lg font-display font-bold\' style=\'color: var(--color-text-primary);\'>HUGGO</p><p class=\'text-sm mt-1\' style=\'color: var(--color-text-secondary);\'>Assistant IA WhatsApp</p></div></div>'"
+            />
+          </div>
+
+          <!-- Floating badge -->
+          <div class="absolute -bottom-3 -left-3 bg-white rounded-xl shadow-lg px-4 py-3 flex items-center gap-3 border" style="border-color: var(--color-border-default);">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--color-feedback-success);">
+              <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-semibold" style="color: var(--color-text-primary);">0% commission</p>
+              <p class="text-xs" style="color: var(--color-text-secondary);">{locale === 'fr' ? 'sur vos ventes' : 'on your sales'}</p>
+            </div>
+          </div>
+
+          <!-- Floating badge top-right -->
+          <div class="absolute -top-3 -right-3 bg-white rounded-xl shadow-lg px-4 py-3 flex items-center gap-3 border" style="border-color: var(--color-border-default);">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--color-accent-action);">
+              <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-semibold" style="color: var(--color-text-primary);">24/7</p>
+              <p class="text-xs" style="color: var(--color-text-secondary);">{locale === 'fr' ? 'assistant actif' : 'active assistant'}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spline 3D loads here via island (desktop + WebGL only) -->
+        <div id="spline-container" class="hidden absolute inset-0" aria-hidden="true">
+          <p class="text-sm text-center opacity-60" id="spline-loading">{content.splineLoading}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Spline 3D lazy loading (desktop + WebGL only)
+  import { shouldLoadSpline } from '../../utils/webgl-detect';
+
+  if (shouldLoadSpline()) {
+    const splineUrl = document.querySelector('meta[name="spline-url"]')?.getAttribute('content');
+    // Spline loading would happen here when SPLINE_SCENE_URL is provided
+  }
+</script>

@@ -1,0 +1,65 @@
+---
+interface Benefit {
+  heading: string;
+  body: string;
+  proof?: string;
+  icon?: string;
+}
+
+interface Props {
+  heading: string;
+  subheading?: string;
+  benefits: Benefit[];
+}
+
+const { heading, subheading, benefits } = Astro.props;
+
+// Icons for each benefit (indexed)
+const icons = [
+  // Shield / margins
+  '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />',
+  // Clock / 24h
+  '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />',
+  // Camera / photo
+  '<path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" /><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />',
+  // Sync / basket
+  '<path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182M2.985 19.644l3.183-3.183" />',
+];
+---
+
+<section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label={heading}>
+  <div class="container">
+    <div class="text-center mb-14">
+      {subheading && <p class="text-sm font-semibold uppercase tracking-wider mb-3 animate" style="color: var(--color-accent-action);">{subheading}</p>}
+      <h2 class="font-display font-bold animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">{heading}</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8" id="benefits-grid">
+      {benefits.map((benefit, i) => (
+        <div class="relative bg-[var(--color-surface-elevated)] border rounded-xl p-8 shadow-[var(--shadow-sm)] card-lift animate group" style="border-color: var(--color-border-default);">
+          <!-- Icon -->
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-200 group-hover:scale-110" style="background-color: var(--color-brand-primary);">
+            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <Fragment set:html={icons[i] || icons[0]} />
+            </svg>
+          </div>
+
+          <h3 class="font-display font-semibold text-lg mb-3" style="color: var(--color-text-primary);">{benefit.heading}</h3>
+          <p class="text-[0.9375rem] leading-relaxed mb-4" style="color: var(--color-text-secondary);">{benefit.body}</p>
+          {benefit.proof && (
+            <p class="text-sm italic flex items-start gap-2" style="color: var(--color-text-secondary);">
+              <span class="w-4 h-4 flex-shrink-0 mt-0.5 rounded-full flex items-center justify-center" style="background-color: var(--color-accent-subtle);">
+                <svg class="w-2.5 h-2.5" style="color: var(--color-accent-action);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              {benefit.proof}
+            </p>
+          )}
+
+          <!-- Decorative gradient on hover -->
+          <div class="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style="background: linear-gradient(135deg, var(--color-brand-primary) 0%, transparent 100%); opacity: 0;" aria-hidden="true"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

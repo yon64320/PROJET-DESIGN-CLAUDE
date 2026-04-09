@@ -43,8 +43,31 @@ Order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 (sequential, except for autho
 - At each gate: present a deliverable summary and request validation before proceeding
 - When blocked (missing proof, business decision): ask targeted questions, max 7
 - After agent 6: present GO/NO-GO and optimization backlog
+- After agent 6 and before launching agent 7: produce the project brief (`<project>/project-brief-<project>.md`) — a ~100-120 line cross-agent synthesis that Agent 7 reads first. This is an orchestrator deliverable, not an agent deliverable.
 - After agent 7: present build report. Optionally re-run Agent 6 in BUILD QA mode on the live build.
 - After agent 8: present launch report and client handoff. The pipeline is complete.
+
+## Project initialization
+
+Create `<project-name>/` at root with numbered subfolders mirroring agents (`0-PRD/` through `8-deploiement/`), plus `assets/`. Include `project-brief-<project>.md` and `.pipeline-state.md` (tracks completed agents, passed gates, current position — updated after each agent).
+
+Deliverable naming: `<deliverable>-<project>.md` (e.g., `copy-v1-huggo.md`, `tokens-huggo.json`).
+
+## Project brief (orchestrator deliverable)
+
+Before Agent 7, produce `<project>/project-brief-<project>.md` (~100-120 lines). **No agent produces this — only the orchestrator.** Sections:
+
+| # | Section | ~Lines | Content |
+|---|---------|--------|---------|
+| 1 | Identité projet | 5 | Nom, secteur, positionnement, promesse, CTA principal |
+| 2 | Architecture du site | 10 | Pages, hiérarchie, parcours principal |
+| 3 | Décisions stratégiques | 10 | Conversion, preuves, ton, angle différenciant |
+| 4 | Design system essentials | 15 | Palette, typo, tokens clés, composants, dark mode |
+| 5 | Animation tier + motion | 10 | Tier, budget JS, librairies, patterns signature |
+| 6 | Stack technique | 10 | Framework, CMS, hébergement, dépendances critiques |
+| 7 | Contraintes croisées | 15 | Perf (LCP/CLS/FID), a11y, SEO, i18n, dark mode |
+| 8 | Carte des fichiers | 15 | Chemin de chaque livrable + nombre de lignes |
+| 9 | Issues QA connues | 10 | Issues ouvertes, priorisées par sévérité |
 
 ## File structure
 

@@ -1,0 +1,29 @@
+{
+  "name": "huggo-site",
+  "version": "1.0.0",
+  "description": "HUGGO — Premium conversion showcase site",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "keywords": [],
+  "author": "HUGGO",
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "@astrojs/react": "^5.0.3",
+    "@astrojs/sitemap": "^3.7.2",
+    "@splinetool/react-spline": "^4.1.0",
+    "@tailwindcss/postcss": "^4.2.2",
+    "astro": "^6.1.5",
+    "gsap": "^3.14.2",
+    "lenis": "^1.3.21",
+    "postcss": "^8.5.9",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^4.2.2"
+  }
+}

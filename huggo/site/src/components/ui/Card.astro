@@ -1,0 +1,23 @@
+---
+interface Props {
+  variant?: 'default' | 'pricing' | 'benefit';
+  class?: string;
+  href?: string;
+}
+
+const { variant = 'default', class: className = '', href } = Astro.props;
+
+const baseClasses = 'bg-surface-elevated border border-border rounded-md p-component-sm shadow-sm card-lift';
+
+const variantClasses = {
+  default: '',
+  pricing: 'flex flex-col',
+  benefit: 'flex flex-col',
+};
+
+const classes = `${baseClasses} ${variantClasses[variant]} ${className}`;
+---
+
+<div class={classes}>
+  <slot />
+</div>

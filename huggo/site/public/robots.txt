@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block placeholder pages
+Disallow: /fr/legal
+Disallow: /en/legal
+Disallow: /fr/privacy
+Disallow: /en/privacy
+Disallow: /fr/blog
+Disallow: /en/blog
+
+Sitemap: https://huggo.ai/sitemap-index.xml

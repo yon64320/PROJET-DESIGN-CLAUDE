@@ -1,0 +1,103 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import HeroHome from '../../components/sections/HeroHome.astro';
+import MetricsSection from '../../components/sections/MetricsSection.astro';
+import LogoBar from '../../components/sections/LogoBar.astro';
+import BenefitsGrid from '../../components/sections/BenefitsGrid.astro';
+import VerticalsCards from '../../components/sections/VerticalsCards.astro';
+import StepsSection from '../../components/sections/StepsSection.astro';
+import FaqSection from '../../components/sections/FaqSection.astro';
+import PreFooterCTA from '../../components/global/PreFooterCTA.astro';
+import { getLocalePath } from '../../utils/i18n';
+
+const locale = 'en';
+---
+
+<PageLayout title="HUGGO — WhatsApp Ordering for Retailers | 0% Commission" description="Turn WhatsApp into a sales channel for your store. AI assistant 24/7, 0% commission, live in minutes. Request a demo." locale={locale} alternateUrl="/fr/" schemaOrg={{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'HUGGO', url: (import.meta.env.SITE_URL || 'https://huggo.ai') + '/en/' }}>
+  <HeroHome locale={locale} />
+
+  <MetricsSection heading="The numbers speak." metrics={[
+    { value: '15', suffix: 'M', label: 'orders processed' },
+    { value: '15', prefix: '+', suffix: ' to +30%', label: 'average basket vs mobile app' },
+    { value: '60', suffix: '%', label: 'customer base digitized in 3 months' },
+    { value: '0', suffix: '%', label: 'commission on your sales' },
+  ]} />
+
+  <LogoBar label="Works with your tools" />
+
+  <BenefitsGrid heading="What HUGGO changes for your business." benefits={[
+    { heading: 'Keep 100% of your margins.', body: 'WhatsApp is a direct channel between you and your customers. No middleman platform, no commission. Your sales are yours.', proof: 'Proof: 0% commission vs 20-30% on delivery platforms.' },
+    { heading: 'A salesperson who never sleeps.', body: 'Your assistant takes orders, recommends your products, and follows up on abandoned carts. Even at 11 PM, even on Sundays.', proof: 'Proof: 15M orders processed since March 2025.' },
+    { heading: 'Snap your menu, and you\'re set.', body: 'No developer, no training, no hardware. Take a photo of your menu or sync your POS system: HUGGO builds your assistant automatically.', proof: 'Proof: 0 to 30% of customer base digitized within 1 month.' },
+    { heading: 'WhatsApp, kiosk, POS, website: one single basket.', body: 'Your customer starts an order on WhatsApp, modifies it in-store, pays however they like. Everything syncs in real time with your POS.', proof: 'Proof: connected to major POS systems via HubRise and Orisha Distribution.' },
+  ]} />
+
+  <VerticalsCards locale={locale} heading="HUGGO adapts to your business." cards={[
+    { heading: 'Retailers', body: 'Bakery, restaurant, caterer, grocery, wine shop, bar, decor, clothing — your AI assistant handles orders and builds loyalty with regulars.', cta: 'Discover the Retail offer', href: getLocalePath(locale, 'retail') },
+    { heading: 'Networks & Franchises', body: 'One AI assistant per location, one consolidated network view. Deploy HUGGO across 50, 200, or 500 locations at once.', cta: 'Discover the Franchise offer', href: getLocalePath(locale, 'franchise') },
+    { heading: 'Local authorities & Short supply chains', body: 'Local producers, mobile vendors, municipalities without nearby shops. HUGGO creates a direct WhatsApp sales channel — no infrastructure needed.', cta: 'Discover the Collectivity offer', href: getLocalePath(locale, 'collectivity') },
+  ]} />
+
+  <StepsSection heading="Live in 4 steps." steps={[
+    { number: 1, heading: 'Find your store', body: 'HUGGO locates your business on Google Business.' },
+    { number: 2, heading: 'Import your products', body: 'Photo of your menu or direct sync from your POS.' },
+    { number: 3, heading: 'Your assistant is built', body: 'AI sets up a personalized WhatsApp assistant for your store.' },
+    { number: 4, heading: 'Your customers start ordering', body: 'Your number goes live on Google Business. Orders roll in.' },
+  ]} cta="See how it works in detail" ctaHref={getLocalePath(locale, 'how-it-works')} />
+
+  <!-- Social proof -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label="Social proof">
+    <div class="container">
+      <div class="max-w-2xl mx-auto text-center mb-16 animate">
+        <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-10 shadow-[var(--shadow-sm)]" style="border-color: var(--color-border-default);">
+          <svg class="w-10 h-10 mx-auto mb-4 opacity-20" style="color: var(--color-text-secondary);" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151C7.563 6.068 6 8.789 6 11h4v10H0z" /></svg>
+          <p class="text-lg italic mb-4" style="color: var(--color-text-secondary);">[Placeholder for retailer testimonial]</p>
+          <p class="text-sm" style="color: var(--color-text-secondary);">Photo + quote + name/trade/city</p>
+        </div>
+      </div>
+      <div class="text-center">
+        <h3 class="font-display font-semibold text-xl mb-8 animate" style="color: var(--color-text-primary);">Built with the best.</h3>
+        <div class="flex flex-wrap items-center justify-center gap-8 lg:gap-12 animate">
+          {['Google Cloud Platform', 'Orisha Distribution', 'Centrale Paris/France', 'Contodeo'].map((partner) => (
+            <div class="px-6 py-3 rounded-xl border" style="border-color: var(--color-border-default); background-color: var(--color-surface-elevated);"><span class="text-sm font-semibold" style="color: var(--color-text-secondary);">{partner}</span></div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mascot -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label="Mascot">
+    <div class="container">
+      <div class="flex flex-col md:flex-row items-center gap-10 max-w-3xl mx-auto animate">
+        <div class="w-36 h-36 flex-shrink-0 rounded-full overflow-hidden shadow-lg ring-4 ring-white/50">
+          <img src="/images/mascotte.jpeg" alt="HUGGO Mascot" width="400" height="400" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div>
+          <p class="text-lg leading-relaxed mb-5" style="color: var(--color-text-primary);">Got a question? Message us on WhatsApp. We reply the way we like: fast and clear.</p>
+          <a href={`https://wa.me/${import.meta.env.WHATSAPP_NUMBER || ''}`} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 h-[46px] rounded-[20px] font-semibold text-white transition-all duration-150 hover:shadow-lg active:scale-[0.97] group" style="background-color: #25D366;">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" /></svg>
+            Chat on WhatsApp
+            <svg class="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FaqSection items={[
+    { question: 'My customers aren\'t tech-savvy — they\'ll never use this.', answer: 'Your customers already use WhatsApp — it\'s on 95% of smartphones in France. Nothing to download, nothing to learn. They send a message, just like they do 50 times a day. The result: 60% of the customer base digitized in 3 months, including stores whose customers had never ordered online before.' },
+    { question: 'WhatsApp is personal. Not for ordering.', answer: 'WhatsApp Business is the most widely used commercial messaging channel in the world. Your customers would rather send a message than call or stand in line. The numbers confirm it: 15 million orders processed through HUGGO since March 2025.' },
+    { question: 'It\'s expensive — I already have a website.', answer: 'A website doesn\'t take orders automatically, recommend products, or follow up on abandoned carts. HUGGO does — 24/7, without hiring anyone. And unlike delivery platforms, zero commission on your sales. The result: +15 to +30% average basket increase.' },
+    { question: 'I\'m not a tech person — it sounds complicated.', answer: 'Setup takes minutes. Take a photo of your menu — the AI handles the rest. No hardware, no training, no developer. Your assistant is live the same day.' },
+  ]} />
+
+  <PreFooterCTA locale={locale} heading="Ready to take back control of your sales?" subtext="A 15-minute demo is all it takes to see HUGGO in action for your store." primaryCta="Request a demo" secondaryCta="Contact us" />
+</PageLayout>
+
+<script>
+  import { initGSAP, createFadeUp, createCounter, createStaggeredFadeUp } from '../../utils/gsap-init';
+  import { initLenis } from '../../utils/lenis-init';
+  async function init() { const result = await initGSAP(); if (!result) return; const { gsap, ScrollTrigger } = result; const counters = document.querySelectorAll('.counter'); if (counters.length > 0) createCounter(gsap, ScrollTrigger, counters); createStaggeredFadeUp(gsap, ScrollTrigger, '#benefits-grid', '.card-lift'); createStaggeredFadeUp(gsap, ScrollTrigger, '#verticals-grid', 'a'); document.querySelectorAll('.animate').forEach((el) => createFadeUp(gsap, ScrollTrigger, el)); await initLenis(); }
+  init();
+</script>

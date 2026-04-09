@@ -1,0 +1,31 @@
+---
+import Accordion from '../ui/Accordion.astro';
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  heading?: string;
+  items: FaqItem[];
+  class?: string;
+}
+
+const { heading, items, class: className = '' } = Astro.props;
+---
+
+<section class={`py-16 lg:py-20 ${className}`} style="background-color: var(--color-surface-primary);" aria-label={heading || 'FAQ'}>
+  <div class="container max-w-3xl">
+    {heading && (
+      <h2 class="font-display font-bold text-center mb-10 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">{heading}</h2>
+    )}
+    <div class="rounded-xl border overflow-hidden shadow-[var(--shadow-sm)]" style="border-color: var(--color-border-default);">
+      {items.map((item, i) => (
+        <Accordion question={item.question} id={`faq-${i}`}>
+          <p set:html={item.answer} />
+        </Accordion>
+      ))}
+    </div>
+  </div>
+</section>

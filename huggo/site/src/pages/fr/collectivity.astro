@@ -1,0 +1,106 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import HeroPage from '../../components/sections/HeroPage.astro';
+import MetricsSection from '../../components/sections/MetricsSection.astro';
+import FaqSection from '../../components/sections/FaqSection.astro';
+import PreFooterCTA from '../../components/global/PreFooterCTA.astro';
+import { getLocalePath } from '../../utils/i18n';
+
+const locale = 'fr';
+---
+
+<PageLayout title="HUGGO Collectivity — Commerce local par WhatsApp" description="62% des communes françaises n'ont plus de commerce. HUGGO connecte producteurs et consommateurs par WhatsApp. Circuit court, anti-gaspi, inclusion digitale." locale={locale} alternateUrl="/en/collectivity">
+  <HeroPage locale={locale} h1="Le commerce de proximité, même là où il n'y a plus de commerce." subtitle="HUGGO connecte producteurs locaux et consommateurs par WhatsApp. Pas de local commercial, pas de site e-commerce, pas d'infrastructure. Juste un message pour commander." ctaPrimary="Nous contacter" microText="Projet collectivité ou producteur — parlons-en" />
+
+  <!-- S2: Le problème rural en chiffres -->
+  <MetricsSection heading="La France rurale perd ses commerces." metrics={[
+    { value: '400000', prefix: '', suffix: '+', label: 'exploitations agricoles en France' },
+    { value: '62', suffix: '%', label: 'des communes n\'ont accès à aucun commerce' },
+    { value: '6', suffix: 'M', label: 'de Français vivent à plus de 7 min d\'un commerce alimentaire' },
+    { value: '10000', label: 'camions de commerces itinérants sillonnent le territoire' },
+  ]} />
+
+  <!-- S3: HUGGO pour le circuit court -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label="Circuit court">
+    <div class="container max-w-4xl">
+      <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Trois façons de recréer du commerce local.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          { heading: 'Le producteur qui vend en direct.', body: 'Votre maraîcher, votre fromager, votre apiculteur : ils produisent à côté, mais vendre reste compliqué. Avec HUGGO, leurs clients commandent par WhatsApp et récupèrent à la ferme ou au point de retrait.' },
+          { heading: 'Le commerce itinérant avec pré-commandes.', body: 'Le camion-boulanger passe le mardi. Ses clients commandent à l\'avance par WhatsApp : pas de gaspillage, pas de manque. Il prépare exactement ce qui a été demandé.' },
+          { heading: 'La commune qui organise un "marché digital".', body: 'Plusieurs producteurs locaux, un seul canal WhatsApp. Les habitants commandent, un point de retrait collectif est organisé chaque semaine. La commune recrée du lien commercial sans ouvrir de local.' },
+        ].map((useCase) => (
+          <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-7 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+            <h3 class="font-display font-semibold text-lg mb-3" style="color: var(--color-text-primary);">{useCase.heading}</h3>
+            <p class="text-[0.9375rem] leading-relaxed" style="color: var(--color-text-secondary);">{useCase.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S4: Bénéfices -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label="Bénéfices">
+    <div class="container max-w-3xl">
+      <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Pourquoi WhatsApp est le bon canal pour le rural.</h2>
+      <div class="space-y-6">
+        {[
+          { heading: 'Pas d\'infrastructure requise.', body: 'Pas de local commercial, pas de site e-commerce, pas de terminal de paiement dédié. Un smartphone et WhatsApp suffisent.' },
+          { heading: 'Un canal que tout le monde connaît.', body: '95% des smartphones ont WhatsApp. Pas d\'app à télécharger, pas de compte à créer. Accessible aux non-technophiles, aux personnes âgées, aux touristes de passage.', proof: 'Preuve : 60% de digitalisation en 3 mois, sur une clientèle historiquement non-technophile.' },
+          { heading: 'Lien direct producteur-consommateur.', body: 'Le producteur vend, le consommateur achète. Pas d\'intermédiaire, pas de commission, pas de plateforme. Le circuit est aussi court que possible.' },
+        ].map((benefit) => (
+          <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-8 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+            <h3 class="font-display font-semibold text-lg mb-3" style="color: var(--color-text-primary);">{benefit.heading}</h3>
+            <p class="text-[0.9375rem] leading-relaxed" style="color: var(--color-text-secondary);">{benefit.body}</p>
+            {benefit.proof && <p class="text-sm italic mt-3 flex items-center gap-2" style="color: var(--color-accent-action);"><svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>{benefit.proof}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S5: Impact RSE -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-primary);" aria-label="Impact RSE">
+    <div class="container max-w-4xl">
+      <h2 class="font-display font-bold text-center mb-14 animate" style="font-size: clamp(1.625rem, 3.5vw, 2.25rem); color: var(--color-text-primary);">Un impact concret, pas des intentions.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[
+          { title: 'Anti-gaspi', desc: 'Les pré-commandes permettent au producteur de ne préparer que ce qui est vendu. Moins de pertes, moins de surplus, moins de transport inutile.' },
+          { title: 'Inclusion digitale', desc: 'HUGGO fonctionne sur WhatsApp — une app que 95% des Français possèdent déjà. Aucun apprentissage, aucun compte supplémentaire.' },
+          { title: 'Commerce local renforcé', desc: 'Chaque commande via HUGGO va directement au commerçant. Pas de plateforme intermédiaire, pas de commission. Le chiffre d\'affaires reste dans le quartier.' },
+          { title: 'Circuit court', desc: 'Du producteur au consommateur, sans étape superflue. La distance entre la production et l\'assiette se mesure en kilomètres, pas en entrepôts.' },
+          { title: 'Accessibilité', desc: 'Commander sans se déplacer, sans faire la queue, sans contrainte horaire. Pour les personnes à mobilité réduite, les personnes âgées, les familles éloignées.' },
+        ].map((item) => (
+          <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-6 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+            <h3 class="font-display font-semibold mb-2" style="color: var(--color-brand-primary);">{item.title}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--color-text-secondary);">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- S6: Témoignage placeholder -->
+  <section class="py-20 lg:py-24" style="background-color: var(--color-surface-secondary);" aria-label="Témoignage">
+    <div class="container max-w-2xl text-center">
+      <div class="bg-[var(--color-surface-elevated)] border rounded-xl p-10 shadow-[var(--shadow-sm)] animate" style="border-color: var(--color-border-default);">
+        <p class="text-lg italic" style="color: var(--color-text-secondary);">[Emplacement réservé pour témoignage d'un producteur local, d'une collectivité ou d'un commerce itinérant]</p>
+      </div>
+    </div>
+  </section>
+
+  <FaqSection items={[
+    { question: 'La population rurale n\'est pas connectée.', answer: 'WhatsApp est installé sur 95% des smartphones français. Pas d\'app à télécharger. HUGGO a déjà digitalisé 60% de la clientèle de commerçants dont les clients n\'avaient jamais commandé en ligne — la preuve que la fracture numérique est un frein perçu, pas un frein réel.' },
+    { question: 'On n\'a pas de budget tech.', answer: 'Pas d\'infrastructure requise : pas de local, pas de matériel, pas de développeur. Un abonnement mensuel accessible, pas de commission sur les ventes. L\'investissement se résume à un smartphone et une connexion internet.' },
+    { question: 'Les producteurs locaux ont déjà leurs circuits de vente.', answer: 'HUGGO complète, ne remplace pas. Les commandes anticipées réduisent les pertes, élargissent la clientèle au-delà du marché hebdomadaire, et permettent de vendre les jours où le marché est fermé.' },
+  ]} />
+
+  <PreFooterCTA locale={locale} heading="Créons ensemble un canal de commerce local." subtext="Que vous soyez producteur, collectivité ou commerce itinérant — parlons de ce que HUGGO peut faire pour votre territoire." primaryCta="Nous contacter" secondaryCta="Demander une démo" />
+</PageLayout>
+
+<script>
+  import { initGSAP, createFadeUp, createCounter } from '../../utils/gsap-init';
+  import { initLenis } from '../../utils/lenis-init';
+  async function init() { const result = await initGSAP(); if (!result) return; const { gsap, ScrollTrigger } = result; const counters = document.querySelectorAll('.counter'); if (counters.length > 0) createCounter(gsap, ScrollTrigger, counters); document.querySelectorAll('.animate').forEach((el) => createFadeUp(gsap, ScrollTrigger, el)); await initLenis(); }
+  init();
+</script>
